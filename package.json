@@ -1,0 +1,8 @@
+{
+  "name": "matteus-camilo-site",
+  "version": "1.0.0",
+  "description": "Site premium - Matteus Camilo Audio Visual",
+  "scripts": {
+    "build": "echo done"
+  }
+}
