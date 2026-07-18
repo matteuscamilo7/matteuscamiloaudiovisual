@@ -1,0 +1,17 @@
+{
+  "name": "Matteus Camilo - Editor de Vídeo Premium | Audiovisual Cinematográfico",
+  "short_name": "MC Audiovisual",
+  "description": "Editor de vídeo profissional com 13 anos de experiência. Edição cinematográfica para YouTube, Reels, comerciais, clipes e eventos.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#f21d64",
+  "icons": [
+    {
+      "src": "Topo-fundo-OFC.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

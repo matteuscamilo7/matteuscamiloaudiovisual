@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefing - Matteus Camilo | Criação de Sites</title>
+    <meta name="description" content="Formulário de briefing para criação de sites profissionais. Preencha as informações e comece seu projeto.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#f5f5f7;--surface:rgba(0,0,0,.02);--surface-2:rgba(0,0,0,.04);
+            --white:#1a1a25;--g1:rgba(0,0,0,.6);--g2:rgba(0,0,0,.4);--g3:rgba(0,0,0,.15);
+            --accent:#f21d64;--accent-soft:rgba(242,29,100,.08);--accent-border:rgba(242,29,100,.18);
+            --accent-glow:rgba(242,29,100,.1);--accent-hover:rgba(242,29,100,.12);
+            --green:#00e5a0;--blue:#4a9eff;--red:#ff4757;
+            --ease:cubic-bezier(.22,1,.36,1);
+        }
+        body.dark-mode{
+            --bg:#030308;--surface:rgba(255,255,255,.025);--surface-2:rgba(255,255,255,.04);
+            --white:#f0f0f5;--g1:rgba(255,255,255,.55);--g2:rgba(255,255,255,.3);--g3:rgba(255,255,255,.12);
+            --accent-soft:rgba(242,29,100,.1);--accent-border:rgba(242,29,100,.2);
+            --accent-glow:rgba(242,29,100,.08);--accent-hover:rgba(242,29,100,.15);
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden;transition:background .5s,color .5s}
+
+        /* ── BG LAYERS ── */
+        .briefing-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+        .briefing-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(242,29,100,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(242,29,100,.04) 1px,transparent 1px);background-size:60px 60px;opacity:.3}
+        body.dark-mode .briefing-grid{opacity:.5;background-image:linear-gradient(rgba(0,229,160,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,160,.04) 1px,transparent 1px)}
+        .briefing-checker{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(242,29,100,.018) 1px,transparent 1px);background-size:20px 20px;opacity:.6}
+        body.dark-mode .briefing-checker{background-image:radial-gradient(circle,rgba(0,229,160,.015) 1px,transparent 1px);opacity:.8}
+        .briefing-grid::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,transparent,var(--bg))}
+        .briefing-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,var(--bg) 100%);pointer-events:none}
+        .briefing-bg-orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.08;transition:opacity .5s}
+        body.dark-mode .briefing-bg-orb{opacity:.12}
+        .briefing-bg-orb-1{width:500px;height:500px;background:radial-gradient(circle,#f21d64 0%,transparent 70%);top:-200px;right:-150px;animation:orbDrift 15s ease-in-out infinite}
+        .briefing-bg-orb-2{width:400px;height:400px;background:radial-gradient(circle,#ff6b9d 0%,transparent 70%);bottom:-150px;left:-100px;animation:orbDrift 18s ease-in-out infinite reverse}
+        .briefing-bg-orb-3{width:300px;height:300px;background:radial-gradient(circle,#c2185b 0%,transparent 70%);top:50%;left:30%;animation:orbDrift 20s ease-in-out infinite}
+        body.dark-mode .briefing-bg-orb-2{background:radial-gradient(circle,#00e5a0 0%,transparent 70%)}
+        body.dark-mode .briefing-bg-orb-3{background:radial-gradient(circle,#4a9eff 0%,transparent 70%)}
+        @keyframes orbDrift{0%,100%{transform:translate(0,0)}25%{transform:translate(30px,-40px)}50%{transform:translate(-20px,30px)}75%{transform:translate(40px,20px)}}
+        .briefing-circuit{position:absolute;inset:0;opacity:.03;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath d='M20 20h60v0h40v20h20v40h-20v20h-40v-20h-20v-40h20v-20zm100 100h80v0h20v30h-20v20h-30v-20h-20v-30h20v-20zm160 40h40v0h60v30h-60v20h-40v-20h-20v-30h20v-20zm-120 80h60v0h40v40h-40v20h-60v-20h-20v-40h20v-20zm180 20h30v0h50v30h-50v20h-30v-20h-20v-30h20v-20zm-240 60h50v0h40v20h-40v30h-50v-30h-20v-20h20v-20zm120 -100h40v0h60v20h-60v30h-40v-30h-20v-20h20v-20z' fill='none' stroke='%23f21d64' stroke-width='.5'/%3E%3Ccircle cx='80' cy='20' r='3' fill='%23f21d64' opacity='.3'/%3E%3Ccircle cx='200' cy='120' r='3' fill='%23f21d64' opacity='.3'/%3E%3Ccircle cx='360' cy='160' r='3' fill='%23f21d64' opacity='.3'/%3E%3Ccircle cx='240' cy='340' r='3' fill='%23f21d64' opacity='.3'/%3E%3Ccircle cx='100' cy='240' r='3' fill='%23f21d64' opacity='.3'/%3E%3Ccircle cx='300' cy='300' r='3' fill='%23f21d64' opacity='.3'/%3E%3C/svg%3E");background-size:400px 400px}
+        body.dark-mode .briefing-circuit{stroke:'%2300e5a0';opacity:.04}
+
+        .briefing-grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:overlay}
+        body.dark-mode .briefing-grain{opacity:.06}
+
+        .briefing-scanlines{display:none}
+        body.dark-mode .briefing-scanlines{display:block;position:fixed;inset:0;z-index:50;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);opacity:.4}
+        .briefing-scanline-moving{display:none}
+        body.dark-mode .briefing-scanline-moving{display:block;position:fixed;left:0;right:0;height:120px;z-index:51;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(0,229,160,.02),rgba(0,229,160,.04),rgba(0,229,160,.02),transparent);animation:scanMove 8s linear infinite}
+        @keyframes scanMove{0%{top:-120px}100%{top:100vh}}
+        .briefing-static{display:none}
+        body.dark-mode .briefing-static{display:block;position:fixed;inset:0;z-index:49;pointer-events:none;opacity:.015;animation:staticFlicker .1s steps(10) infinite}
+        @keyframes staticFlicker{0%,100%{opacity:.015}50%{opacity:.025}}
+
+        .briefing-particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+        .briefing-particle{position:absolute;border-radius:50%;pointer-events:none;opacity:0}
+        #matrixRain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0}
+        body.dark-mode #matrixRain{opacity:.06}
+
+        /* ── MODE TOGGLE ── */
+        .mode-toggle{position:fixed;top:1.2rem;right:1.2rem;z-index:100;width:44px;height:44px;border-radius:12px;border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.7);backdrop-filter:blur(12px);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;color:var(--g1);box-shadow:0 2px 12px rgba(0,0,0,.05)}
+        body.dark-mode .mode-toggle{border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.05);box-shadow:none}
+        .mode-toggle:hover{border-color:rgba(242,29,100,.3);color:var(--accent);box-shadow:0 2px 20px rgba(242,29,100,.1)}
+        .mode-toggle svg{width:20px;height:20px}
+        .mode-toggle .icon-sun{display:none}
+        body.dark-mode .mode-toggle .icon-sun{display:block}
+        body.dark-mode .mode-toggle .icon-moon{display:none}
+
+        /* ── PROGRESS BAR ── */
+        .briefing-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),#ff6b9d);z-index:100;transition:width .4s var(--ease);border-radius:0 2px 2px 0;box-shadow:0 0 10px rgba(242,29,100,.3)}
+
+        .briefing-container{max-width:720px;margin:0 auto;padding:2rem 1.5rem 4rem;position:relative;z-index:2}
+
+        /* ── HUD CORNERS ── */
+        .briefing-hud-corners{position:relative}
+        .briefing-hud-corners::before,.briefing-hud-corners::after,
+        .briefing-hud-inner::before,.briefing-hud-inner::after{content:'';position:absolute;width:30px;height:30px;pointer-events:none;animation:hudPulse 3s ease-in-out infinite}
+        .briefing-hud-corners::before{top:-8px;left:-8px;border-top:2px solid var(--accent);border-left:2px solid var(--accent)}
+        .briefing-hud-corners::after{top:-8px;right:-8px;border-top:2px solid var(--accent);border-right:2px solid var(--accent)}
+        .briefing-hud-inner::before{bottom:-8px;left:-8px;border-bottom:2px solid var(--accent);border-left:2px solid var(--accent)}
+        .briefing-hud-inner::after{bottom:-8px;right:-8px;border-bottom:2px solid var(--accent);border-right:2px solid var(--accent)}
+        @keyframes hudPulse{0%,100%{opacity:.3}50%{opacity:.8}}
+
+        /* ── HEADER ── */
+        .briefing-header{text-align:center;margin-bottom:2.5rem;padding-top:2rem;opacity:0;transform:translateY(20px);animation:fadeUp .6s var(--ease) .2s forwards}
+        .briefing-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent-soft);border:1px solid var(--accent-border);color:var(--accent);font-size:.7rem;font-weight:600;padding:.4rem 1rem;border-radius:20px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1.2rem;animation:neonFlicker 4s ease-in-out infinite}
+        body.dark-mode .briefing-badge{animation:none}
+        .briefing-badge svg{width:14px;height:14px}
+
+        .briefing-title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;line-height:1.2;margin-bottom:.8rem;position:relative}
+        .briefing-title .accent{background:linear-gradient(135deg,var(--accent),#ff6b9d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;display:inline-block}
+        .briefing-title .accent::before,.briefing-title .accent::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;-webkit-background-clip:text;background-clip:text}
+        .briefing-title .accent::before{-webkit-text-fill-color:rgba(255,0,80,.35);text-fill-color:rgba(255,0,80,.35);animation:glitch1 4s infinite;clip-path:inset(0 0 80% 0)}
+        .briefing-title .accent::after{-webkit-text-fill-color:rgba(0,200,255,.25);text-fill-color:rgba(0,200,255,.25);animation:glitch2 4s infinite;clip-path:inset(80% 0 0 0)}
+        body.dark-mode .briefing-title .accent::before{-webkit-text-fill-color:rgba(255,0,80,.5);text-fill-color:rgba(255,0,80,.5)}
+        body.dark-mode .briefing-title .accent::after{-webkit-text-fill-color:rgba(0,200,255,.4);text-fill-color:rgba(0,200,255,.4)}
+        @keyframes glitch1{0%,92%,100%{transform:translate(0)}94%{transform:translate(3px,-1px)}96%{transform:translate(-2px,1px)}98%{transform:translate(1px,2px)}}
+        @keyframes glitch2{0%,90%,100%{transform:translate(0)}92%{transform:translate(-3px,1px)}95%{transform:translate(2px,-2px)}97%{transform:translate(-1px,1px)}}
+        .briefing-sub{font-size:.9rem;color:var(--g1);line-height:1.6;max-width:500px;margin:0 auto}
+
+        @keyframes neonFlicker{0%,19%,21%,23%,25%,54%,56%,100%{text-shadow:0 0 7px rgba(242,29,100,.2);opacity:1}20%,24%,55%{text-shadow:none;opacity:.85}}
+
+        /* ── STEPS ── */
+        .briefing-steps{display:flex;justify-content:center;gap:.5rem;margin-bottom:2.5rem;opacity:0;animation:fadeUp .6s var(--ease) .4s forwards}
+        .briefing-step{display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:var(--g2);transition:color .3s}
+        .briefing-step-num{width:22px;height:22px;border-radius:50%;background:var(--accent-soft);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;color:var(--g1);transition:all .3s}
+        body.dark-mode .briefing-step-num{background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.08)}
+        .briefing-step.active .briefing-step-num{background:rgba(242,29,100,.12);border-color:rgba(242,29,100,.4);color:var(--accent);box-shadow:0 0 12px rgba(242,29,100,.12)}
+        .briefing-step.active{color:var(--accent)}
+        .briefing-step-line{width:30px;height:1px;background:var(--g3);transition:background .3s}
+
+        .briefing-form{display:flex;flex-direction:column;gap:1.5rem}
+
+        /* ── SECTIONS ── */
+        .briefing-section{background:rgba(255,255,255,.7);border:1px solid transparent;border-image:linear-gradient(135deg,rgba(242,29,100,.1),rgba(242,29,100,.2),rgba(242,29,100,.08)) 1;border-radius:0;padding:1.5rem;position:relative;overflow:hidden;transition:all .5s var(--ease);opacity:0;transform:translateY(30px);box-shadow:0 2px 20px rgba(0,0,0,.04),0 1px 3px rgba(0,0,0,.03)}
+        body.dark-mode .briefing-section{background:rgba(0,0,0,.3);border-image:linear-gradient(135deg,rgba(0,229,160,.12),rgba(242,29,100,.25),rgba(0,229,160,.08)) 1;box-shadow:0 4px 30px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.03)}
+        .briefing-section.visible{opacity:1;transform:translateY(0)}
+        .briefing-section:hover{border-image:linear-gradient(135deg,rgba(242,29,100,.15),rgba(242,29,100,.35),rgba(242,29,100,.12)) 1;box-shadow:0 4px 25px rgba(242,29,100,.06),0 2px 8px rgba(0,0,0,.04)}
+        body.dark-mode .briefing-section:hover{border-image:linear-gradient(135deg,rgba(0,229,160,.15),rgba(242,29,100,.4),rgba(0,229,160,.12)) 1;box-shadow:0 8px 40px rgba(0,0,0,.4),0 0 30px rgba(242,29,100,.06)}
+        .briefing-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),#ff6b9d,var(--accent),transparent)}
+        .briefing-section-title{font-size:.85rem;font-weight:600;color:var(--white);margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem;position:relative}
+        .briefing-section-title svg{width:16px;height:16px;color:var(--accent);filter:drop-shadow(0 0 3px rgba(242,29,100,.2))}
+        .briefing-section-desc{font-size:.72rem;color:var(--g2);margin-bottom:1.2rem}
+        .briefing-section.visible .briefing-section-title{animation:titlePulse 4s ease-in-out infinite}
+        @keyframes titlePulse{0%,100%{text-shadow:none}50%{text-shadow:0 0 12px rgba(242,29,100,.1),0 0 25px rgba(242,29,100,.04)}}
+
+        .briefing-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+        @media(max-width:600px){.briefing-row{grid-template-columns:1fr}}
+
+        /* ── FIELDS ── */
+        .briefing-field{display:flex;flex-direction:column;gap:.4rem;position:relative}
+        .briefing-label{font-size:.72rem;font-weight:500;color:var(--g1);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:.3rem}
+        .briefing-tooltip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--accent-soft);border:1px solid var(--accent-border);cursor:help;font-size:.6rem;color:var(--g2);transition:all .3s}
+        .briefing-tooltip:hover{background:var(--accent-hover);border-color:rgba(242,29,100,.35);color:var(--accent);box-shadow:0 0 10px var(--accent-glow)}
+        .briefing-tooltip-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;padding:.5rem .7rem;font-size:.65rem;color:var(--g1);pointer-events:none;opacity:0;transition:all .3s var(--ease);z-index:10;max-width:220px;white-space:normal;line-height:1.4;text-transform:none;letter-spacing:0;font-weight:400;box-shadow:0 4px 15px rgba(0,0,0,.08)}
+        body.dark-mode .briefing-tooltip-tip{background:var(--surface-2);border-color:rgba(255,255,255,.1);box-shadow:none}
+        .briefing-tooltip:hover .briefing-tooltip-tip{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+        .briefing-input,.briefing-textarea,.briefing-select{background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:10px;padding:.7rem 1rem;color:var(--white);font-family:'Inter',sans-serif;font-size:.85rem;transition:all .3s;outline:none;width:100%;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+        body.dark-mode .briefing-input,body.dark-mode .briefing-textarea,body.dark-mode .briefing-select{background:rgba(0,0,0,.4);border-color:rgba(255,255,255,.08);box-shadow:none}
+        .briefing-input:focus,.briefing-textarea:focus,.briefing-select:focus{border-color:rgba(242,29,100,.45);box-shadow:0 0 0 3px rgba(242,29,100,.08),0 2px 8px rgba(242,29,100,.06);background:#fff}
+        body.dark-mode .briefing-input:focus,body.dark-mode .briefing-textarea:focus,body.dark-mode .briefing-select:focus{background:rgba(0,0,0,.5);box-shadow:0 0 15px rgba(242,29,100,.08),0 0 30px rgba(242,29,100,.04)}
+        .briefing-input:hover,.briefing-textarea:hover,.briefing-select:hover{border-color:rgba(242,29,100,.2);box-shadow:0 2px 8px rgba(242,29,100,.04)}
+        .briefing-input::placeholder,.briefing-textarea::placeholder{color:var(--g3)}
+        .briefing-textarea{min-height:100px;resize:vertical;line-height:1.5}
+        .briefing-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(0,0,0,.25)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+        body.dark-mode .briefing-select{background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='rgba(255,255,255,.3)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+        .briefing-select option{background:var(--surface);color:var(--white)}
+
+        .briefing-field.valid .briefing-input,.briefing-field.valid .briefing-textarea,.briefing-field.valid .briefing-select{border-color:rgba(242,29,100,.4);box-shadow:0 0 0 3px rgba(242,29,100,.06)}
+        .briefing-field.invalid .briefing-input,.briefing-field.invalid .briefing-textarea{border-color:rgba(255,71,87,.4);box-shadow:0 0 0 3px rgba(255,71,87,.06)}
+        .briefing-field-error{font-size:.65rem;color:var(--red);display:none;margin-top:.2rem}
+        .briefing-field.invalid .briefing-field-error{display:block}
+
+        /* ── CHECKBOXES ── */
+        .briefing-checkboxes{display:flex;flex-wrap:wrap;gap:.5rem}
+        .briefing-check{display:flex;align-items:center;gap:.4rem;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;padding:.5rem .8rem;cursor:pointer;transition:all .3s;font-size:.75rem;color:var(--g1);box-shadow:0 1px 2px rgba(0,0,0,.02)}
+        body.dark-mode .briefing-check{background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.08);box-shadow:none}
+        .briefing-check:hover{border-color:rgba(242,29,100,.25);box-shadow:0 2px 10px rgba(242,29,100,.05)}
+        body.dark-mode .briefing-check:hover{background:rgba(0,0,0,.4);box-shadow:0 0 15px rgba(242,29,100,.06)}
+        .briefing-check input{display:none}
+        .briefing-check.checked{border-color:rgba(242,29,100,.35);background:rgba(242,29,100,.06);color:var(--accent);box-shadow:0 2px 12px rgba(242,29,100,.08)}
+        body.dark-mode .briefing-check.checked{background:rgba(242,29,100,.08);border-color:rgba(242,29,100,.4);box-shadow:0 0 15px rgba(242,29,100,.08)}
+        .briefing-check-dot{width:14px;height:14px;border-radius:4px;border:1.5px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0}
+        body.dark-mode .briefing-check-dot{border-color:rgba(255,255,255,.15)}
+        .briefing-check.checked .briefing-check-dot{background:var(--accent);border-color:var(--accent);animation:checkPop .3s var(--ease);box-shadow:0 0 8px rgba(242,29,100,.25)}
+        @keyframes checkPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+        .briefing-check.checked .briefing-check-dot::after{content:'';width:6px;height:3px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translateY(-1px)}
+
+        /* ── UPLOAD ── */
+        .briefing-upload{border:2px dashed rgba(0,0,0,.1);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:all .3s;position:relative;background:rgba(255,255,255,.5)}
+        body.dark-mode .briefing-upload{border-color:rgba(255,255,255,.08);background:rgba(0,0,0,.2)}
+        .briefing-upload:hover{border-color:rgba(242,29,100,.3);box-shadow:0 2px 15px rgba(242,29,100,.05)}
+        body.dark-mode .briefing-upload:hover{background:rgba(0,0,0,.3);box-shadow:0 0 25px rgba(242,29,100,.06)}
+        .briefing-upload.dragover{border-color:var(--accent);transform:scale(1.01);box-shadow:0 0 25px rgba(242,29,100,.08)}
+        .briefing-upload input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer}
+        .briefing-upload-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;margin:0 auto .6rem;color:var(--accent);transition:transform .3s;filter:drop-shadow(0 0 4px rgba(242,29,100,.12))}
+        .briefing-upload:hover .briefing-upload-icon{transform:translateY(-3px)}
+        .briefing-upload-text{font-size:.8rem;color:var(--g1);margin-bottom:.2rem}
+        .briefing-upload-hint{font-size:.65rem;color:var(--g3)}
+        .briefing-upload-files{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem;justify-content:center}
+        .briefing-upload-file{display:flex;align-items:center;gap:.3rem;background:rgba(242,29,100,.06);border:1px solid rgba(242,29,100,.15);border-radius:6px;padding:.3rem .6rem;font-size:.65rem;color:var(--accent);animation:fadeUp .3s var(--ease)}
+        body.dark-mode .briefing-upload-file{background:rgba(0,0,0,.4);border-color:rgba(255,255,255,.1)}
+        .briefing-upload-file button{background:none;border:none;color:var(--g2);cursor:pointer;font-size:.8rem;padding:0 .1rem;transition:color .2s}
+        .briefing-upload-file button:hover{color:var(--accent)}
+
+        /* ── CALENDAR ── */
+        .briefing-calendar{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+        .briefing-calendar-day{width:42px;height:42px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;font-size:.6rem;color:var(--g2);box-shadow:0 1px 2px rgba(0,0,0,.03)}
+        body.dark-mode .briefing-calendar-day{background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.08);box-shadow:none}
+        .briefing-calendar-day:hover{border-color:rgba(242,29,100,.25);box-shadow:0 2px 10px rgba(242,29,100,.05)}
+        body.dark-mode .briefing-calendar-day:hover{box-shadow:0 0 15px rgba(242,29,100,.06)}
+        .briefing-calendar-day.selected{border-color:var(--accent);background:rgba(242,29,100,.08);color:var(--accent);font-weight:600;box-shadow:0 2px 12px rgba(242,29,100,.1)}
+        body.dark-mode .briefing-calendar-day.selected{background:rgba(242,29,100,.1);box-shadow:0 0 15px rgba(242,29,100,.12)}
+        .briefing-calendar-day .day-num{font-size:.9rem;font-weight:600;line-height:1}
+        .briefing-calendar-day .day-label{font-size:.5rem;text-transform:uppercase;letter-spacing:.5px}
+
+        /* ── SUBMIT BUTTON ── */
+        .briefing-submit{width:100%;padding:1.1rem 2rem;border:none;border-radius:14px;background:var(--accent);color:#fff;font-family:'Inter',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:all .4s var(--ease);position:relative;overflow:hidden;margin-top:.5rem;text-transform:uppercase;z-index:1;box-shadow:0 4px 20px rgba(242,29,100,.2)}
+        body.dark-mode .briefing-submit{background:#0b0b12;color:var(--accent);box-shadow:none}
+        .briefing-submit::before{content:'';position:absolute;inset:-2px;border-radius:16px;background:conic-gradient(from 0deg,#f21d64,#ff6b9d,#c2185b,#ff4757,#f21d64);z-index:-2;opacity:0;transition:opacity .4s}
+        .briefing-submit::after{content:'';position:absolute;inset:2px;border-radius:12px;background:var(--accent);z-index:-1}
+        body.dark-mode .briefing-submit::after{background:#0b0b12}
+        .briefing-submit:hover::before{opacity:1;animation:rotateBorder 2s linear infinite}
+        .briefing-submit:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(242,29,100,.25)}
+        .briefing-submit:active{transform:translateY(-1px)}
+        .briefing-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+        @keyframes rotateBorder{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+        /* ── CONFIRM MODAL ── */
+        .briefing-confirm{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.4);backdrop-filter:blur(12px);padding:2rem;overflow-y:auto}
+        body.dark-mode .briefing-confirm{background:rgba(0,0,0,.85)}
+        .briefing-confirm.show{display:flex;align-items:center;justify-content:center;animation:fadeIn .3s var(--ease)}
+        .briefing-confirm-box{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:20px;padding:2rem;max-width:600px;width:100%;max-height:80vh;overflow-y:auto;position:relative;box-shadow:0 8px 40px rgba(0,0,0,.1),0 0 30px rgba(242,29,100,.04)}
+        body.dark-mode .briefing-confirm-box{background:rgba(0,0,0,.5);border-color:rgba(255,255,255,.08);box-shadow:0 8px 50px rgba(0,0,0,.5),0 0 30px rgba(242,29,100,.04)}
+        .briefing-confirm-title{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:.3rem}
+        .briefing-confirm-sub{font-size:.8rem;color:var(--g2);margin-bottom:1.5rem}
+        .briefing-confirm-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.5rem}
+        .briefing-confirm-item{background:rgba(242,29,100,.03);border-radius:10px;padding:.8rem;border:1px solid rgba(242,29,100,.06)}
+        body.dark-mode .briefing-confirm-item{background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.05)}
+        .briefing-confirm-item label{font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:var(--accent);display:block;margin-bottom:.2rem}
+        .briefing-confirm-item span{font-size:.8rem;color:var(--white);line-height:1.4}
+        .briefing-confirm-item.full{grid-column:span 2}
+        .briefing-confirm-actions{display:flex;gap:.8rem}
+        .briefing-confirm-btn{flex:1;padding:.9rem 1.5rem;border-radius:12px;border:none;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .3s;text-transform:uppercase;letter-spacing:.5px}
+        .briefing-confirm-btn.cancel{background:rgba(0,0,0,.04);color:var(--g1);border:1px solid rgba(0,0,0,.1)}
+        body.dark-mode .briefing-confirm-btn.cancel{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}
+        .briefing-confirm-btn.cancel:hover{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.15)}
+        .briefing-confirm-btn.confirm{background:var(--accent);color:#fff;position:relative;overflow:hidden;z-index:1;box-shadow:0 4px 15px rgba(242,29,100,.2)}
+        body.dark-mode .briefing-confirm-btn.confirm{background:#0b0b12;color:var(--accent);box-shadow:none}
+        .briefing-confirm-btn.confirm::before{content:'';position:absolute;inset:-2px;border-radius:14px;background:conic-gradient(from 0deg,#f21d64,#ff6b9d,#c2185b,#ff4757,#f21d64);z-index:-2;opacity:0;transition:opacity .4s}
+        .briefing-confirm-btn.confirm::after{content:'';position:absolute;inset:2px;border-radius:10px;background:var(--accent);z-index:-1}
+        body.dark-mode .briefing-confirm-btn.confirm::after{background:#0b0b12}
+        .briefing-confirm-btn.confirm:hover::before{opacity:1;animation:rotateBorder 2s linear infinite}
+        .briefing-confirm-btn.confirm:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(242,29,100,.2)}
+
+        /* ── SUCCESS ── */
+        .briefing-success{display:none;text-align:center;padding:3rem 1.5rem}
+        .briefing-success.show{display:block;animation:fadeUp .6s var(--ease)}
+        .briefing-success-icon{width:64px;height:64px;border-radius:50%;background:rgba(242,29,100,.08);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;animation:successPop .5s var(--ease);box-shadow:0 0 30px rgba(242,29,100,.12)}
+        @keyframes successPop{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+        .briefing-success h2{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:.5rem}
+        .briefing-success p{font-size:.85rem;color:var(--g1);margin-bottom:1.5rem}
+
+        /* ── PROMPT ── */
+        .briefing-prompt{background:rgba(242,29,100,.02);border:1px solid rgba(242,29,100,.1);border-radius:12px;padding:1.2rem;text-align:left;position:relative;margin-bottom:1.5rem}
+        body.dark-mode .briefing-prompt{background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.08)}
+        .briefing-prompt-label{font-size:.7rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem}
+        .briefing-prompt-text{font-size:.72rem;color:var(--g1);line-height:1.6;white-space:pre-wrap;font-family:'Share Tech Mono','SF Mono',Monaco,'Cascadia Code',monospace;max-height:300px;overflow-y:auto}
+        .briefing-prompt-copy{position:absolute;top:.8rem;right:.8rem;background:rgba(242,29,100,.08);border:1px solid rgba(242,29,100,.2);color:var(--accent);font-size:.65rem;font-weight:600;padding:.3rem .7rem;border-radius:6px;cursor:pointer;transition:all .3s}
+        .briefing-prompt-copy:hover{background:rgba(242,29,100,.15);box-shadow:0 2px 10px rgba(242,29,100,.08)}
+        .briefing-prompt-copy.copied{background:var(--accent);color:#fff}
+
+        /* ── FOOTER ── */
+        .briefing-footer{text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(0,0,0,.06)}
+        body.dark-mode .briefing-footer{border-color:rgba(255,255,255,.06)}
+        .briefing-footer p{font-size:.7rem;color:var(--g3)}
+        .briefing-footer a{color:var(--accent);text-decoration:none}
+
+        @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+        .confetti-container{position:fixed;inset:0;pointer-events:none;z-index:300}
+        .confetti-piece{position:absolute;width:8px;height:8px;border-radius:2px;opacity:0}
+
+        @media(prefers-reduced-motion:reduce){
+            .briefing-bg-orb{animation:none}
+            .briefing-success-icon{animation:none}
+            .briefing-header,.briefing-steps,.briefing-section{animation:none;opacity:1;transform:none}
+            .briefing-check.checked .briefing-check-dot{animation:none}
+            .briefing-upload-file{animation:none}
+            .briefing-title .accent::before,.briefing-title .accent::after{animation:none}
+            .briefing-badge{animation:none}
+            .briefing-section.visible .briefing-section-title{animation:none}
+            .briefing-hud-corners::before,.briefing-hud-corners::after,.briefing-hud-inner::before,.briefing-hud-inner::after{animation:none}
+            .confetti-container{display:none}
+            .briefing-particles{display:none}
+            #matrixRain{display:none}
+        }
+    </style>
+</head>
+<body>
+    <div class="briefing-bg">
+        <div class="briefing-grid"></div>
+        <div class="briefing-checker"></div>
+        <div class="briefing-circuit"></div>
+        <div class="briefing-vignette"></div>
+        <div class="briefing-bg-orb briefing-bg-orb-1"></div>
+        <div class="briefing-bg-orb briefing-bg-orb-2"></div>
+        <div class="briefing-bg-orb briefing-bg-orb-3"></div>
+    </div>
+    <div class="briefing-grain"></div>
+    <div class="briefing-scanlines"></div>
+    <div class="briefing-scanline-moving"></div>
+    <canvas id="matrixRain"></canvas>
+    <div class="briefing-particles" id="particlesBg"></div>
+
+    <div class="briefing-progress" id="progressBar" style="width:0%"></div>
+
+    <button class="mode-toggle" id="modeToggle" aria-label="Alternar tema">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+
+    <div class="briefing-container">
+        <header class="briefing-header">
+            <div class="briefing-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                BRIEFING
+            </div>
+            <h1 class="briefing-title">Vamos criar o <span class="accent" data-text="site perfeito">site perfeito</span> pra voce</h1>
+            <p class="briefing-sub">Preencha as informacoes abaixo com o maximo de detalhes possivel. Quanto mais eu souber, melhor fica o resultado.</p>
+        </header>
+
+        <div class="briefing-steps" id="stepsBar">
+            <div class="briefing-step active"><span class="briefing-step-num">1</span> Dados</div>
+            <div class="briefing-step-line"></div>
+            <div class="briefing-step"><span class="briefing-step-num">2</span> Negocio</div>
+            <div class="briefing-step-line"></div>
+            <div class="briefing-step"><span class="briefing-step-num">3</span> Site</div>
+            <div class="briefing-step-line"></div>
+            <div class="briefing-step"><span class="briefing-step-num">4</span> Visual</div>
+        </div>
+
+        <form class="briefing-form" id="briefingForm" action="https://formspree.io/f/xkgvbznr" method="POST" enctype="multipart/form-data">
+
+            <div class="briefing-section briefing-hud-corners">
+                <div class="briefing-hud-inner">
+                <div class="briefing-section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Seus Dados
+                </div>
+                <p class="briefing-section-desc">Informacoes de contato pra gente se comunicar.</p>
+                <div class="briefing-row">
+                    <div class="briefing-field" data-validate="required">
+                        <label class="briefing-label">Nome Completo * <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Seu nome completo pra gente se referir a voce durante o projeto.</span></span></label>
+                        <input class="briefing-input" type="text" name="nome" placeholder="Ex: Joao Silva" required>
+                        <span class="briefing-field-error">Preencha seu nome</span>
+                    </div>
+                    <div class="briefing-field" data-validate="required">
+                        <label class="briefing-label">Empresa * <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Nome fantasia ou razao social da sua empresa.</span></span></label>
+                        <input class="briefing-input" type="text" name="empresa" placeholder="Ex: Silva Tech" required>
+                        <span class="briefing-field-error">Preencha o nome da empresa</span>
+                    </div>
+                </div>
+                <div class="briefing-row" style="margin-top:1rem">
+                    <div class="briefing-field" data-validate="email">
+                        <label class="briefing-label">Email *</label>
+                        <input class="briefing-input" type="email" name="email" placeholder="email@empresa.com" required>
+                        <span class="briefing-field-error">Email invalido</span>
+                    </div>
+                    <div class="briefing-field" data-validate="phone">
+                        <label class="briefing-label">Telefone / WhatsApp *</label>
+                        <input class="briefing-input" type="tel" name="telefone" placeholder="(21) 99999-9999" required>
+                        <span class="briefing-field-error">Telefone invalido</span>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div class="briefing-section briefing-hud-corners">
+                <div class="briefing-hud-inner">
+                <div class="briefing-section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    Sobre o Negocio
+                </div>
+                <p class="briefing-section-desc">Conte tudo sobre sua empresa, publico e objetivos.</p>
+                <div class="briefing-field" data-validate="required">
+                    <label class="briefing-label">Ramo de Atividade *</label>
+                    <input class="briefing-input" type="text" name="ramo" placeholder="Ex: Clinica odontologica, Loja de roupas" required>
+                    <span class="briefing-field-error">Preencha o ramo</span>
+                </div>
+                <div class="briefing-field" data-validate="min10" style="margin-top:1rem">
+                    <label class="briefing-label">Descricao do Negocio * <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Quanto mais detalhes, melhor o resultado. Explique o que faz, como funciona, qual a proposta de valor.</span></span></label>
+                    <textarea class="briefing-textarea" name="descricao" placeholder="Explique o que sua empresa faz, quais servicos/produtos oferece..." required></textarea>
+                    <span class="briefing-field-error">Minimo de 10 caracteres</span>
+                </div>
+                <div class="briefing-field" style="margin-top:1rem">
+                    <label class="briefing-label">Publico-Alvo</label>
+                    <textarea class="briefing-textarea" name="publico" placeholder="Quem sao seus clientes ideais? Idade, genero, localizacao..." style="min-height:70px"></textarea>
+                </div>
+                <div class="briefing-field" data-validate="required" style="margin-top:1rem">
+                    <label class="briefing-label">Objetivo Principal do Site * <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Isso define a estrutura e as funcionalidades do site.</span></span></label>
+                    <select class="briefing-select" name="objetivo" required>
+                        <option value="" disabled selected>Selecione o objetivo</option>
+                        <option value="Vender produtos online">Vender produtos online</option>
+                        <option value="Gerar leads via formulario/WhatsApp">Gerar leads via formulario/WhatsApp</option>
+                        <option value="Apresentar empresa e servicos">Apresentar empresa e servicos</option>
+                        <option value="Agendamento de consultas/aulas">Agendamento de consultas/aulas</option>
+                        <option value="Portfolio de trabalhos">Portfolio de trabalhos</option>
+                        <option value="Blog / Conteudo">Blog / Conteudo</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                    <span class="briefing-field-error">Selecione um objetivo</span>
+                </div>
+                <div class="briefing-field" style="margin-top:1rem">
+                    <label class="briefing-label">Concorrentes (links se tiver)</label>
+                    <textarea class="briefing-textarea" name="concorrentes" placeholder="Sites que voce gosta ou que fazem concorrencia." style="min-height:60px"></textarea>
+                </div>
+                </div>
+            </div>
+
+            <div class="briefing-section briefing-hud-corners">
+                <div class="briefing-hud-inner">
+                <div class="briefing-section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    Estrutura do Site
+                </div>
+                <p class="briefing-section-desc">Quais paginas e funcionalidades voce precisa.</p>
+                <div class="briefing-field">
+                    <label class="briefing-label">Paginas Desejadas * <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Selecione todas as paginas que precisa. Podemos ajustar depois.</span></span></label>
+                    <div class="briefing-checkboxes">
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Home"><span class="briefing-check-dot"></span> Home</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Sobre"><span class="briefing-check-dot"></span> Sobre</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Servicos"><span class="briefing-check-dot"></span> Servicos</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Portfolio"><span class="briefing-check-dot"></span> Portfolio</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Blog"><span class="briefing-check-dot"></span> Blog</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Contato"><span class="briefing-check-dot"></span> Contato</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Loja"><span class="briefing-check-dot"></span> Loja</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Landing Page"><span class="briefing-check-dot"></span> Landing Page</label>
+                    </div>
+                </div>
+                <div class="briefing-field" style="margin-top:1rem">
+                    <label class="briefing-label">Funcionalidades Extras</label>
+                    <div class="briefing-checkboxes">
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="WhatsApp"><span class="briefing-check-dot"></span> WhatsApp Flutuante</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Formulario"><span class="briefing-check-dot"></span> Formulario de Contato</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Agendamento"><span class="briefing-check-dot"></span> Agendamento</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Google Maps"><span class="briefing-check-dot"></span> Google Maps</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Galeria"><span class="briefing-check-dot"></span> Galeria de Fotos</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="SEO"><span class="briefing-check-dot"></span> SEO Basico</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Analytics"><span class="briefing-check-dot"></span> Google Analytics</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="CRM"><span class="briefing-check-dot"></span> CRM</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Area do Cliente"><span class="briefing-check-dot"></span> Area do Cliente</label>
+                    </div>
+                </div>
+                <div class="briefing-field" style="margin-top:1rem">
+                    <label class="briefing-label">Outras Informacoes</label>
+                    <textarea class="briefing-textarea" name="outras_info" placeholder="Qualquer outra informacao relevante sobre a estrutura do site..." style="min-height:60px"></textarea>
+                </div>
+                </div>
+            </div>
+
+            <div class="briefing-section briefing-hud-corners">
+                <div class="briefing-hud-inner">
+                <div class="briefing-section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><circle cx="8.5" cy="15.5" r="2.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2"/></svg>
+                    Preferencias Visuais
+                </div>
+                <p class="briefing-section-desc">Cores, estilo e identidade visual do site.</p>
+                <div class="briefing-row">
+                    <div class="briefing-field">
+                        <label class="briefing-label">Cor Principal</label>
+                        <input class="briefing-input" type="color" name="cor_principal" value="#f21d64" style="height:42px;padding:.3rem">
+                    </div>
+                    <div class="briefing-field">
+                        <label class="briefing-label">Cor Secundaria</label>
+                        <input class="briefing-input" type="color" name="cor_secundaria" value="#000000" style="height:42px;padding:.3rem">
+                    </div>
+                </div>
+                <div class="briefing-field" data-validate="required" style="margin-top:1rem">
+                    <label class="briefing-label">Estilo Visual <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Escolha o estilo que mais combina com sua marca. Isso guia todo o design.</span></span></label>
+                    <select class="briefing-select" name="estilo" required>
+                        <option value="" disabled selected>Selecione o estilo</option>
+                        <option value="Minimalista e Clean">Minimalista e Clean</option>
+                        <option value="Moderno e Bold">Moderno e Bold</option>
+                        <option value="Elegante e Sofisticado">Elegante e Sofisticado</option>
+                        <option value="Colorido e Divertido">Colorido e Divertido</option>
+                        <option value="Corporativo e Serio">Corporativo e Serio</option>
+                        <option value="Criativo e Artistico">Criativo e Artistico</option>
+                        <option value="Dark Mode / Neon">Dark Mode / Neon</option>
+                    </select>
+                    <span class="briefing-field-error">Selecione um estilo</span>
+                </div>
+                <div class="briefing-field" style="margin-top:1rem">
+                    <label class="briefing-label">Referencias Visuais</label>
+                    <textarea class="briefing-textarea" name="referencias" placeholder="Cole links de sites que voce gosta do visual..." style="min-height:60px"></textarea>
+                </div>
+                <div class="briefing-field" style="margin-top:1rem">
+                    <label class="briefing-label">Dominio Proprio</label>
+                    <input class="briefing-input" type="url" name="dominio" placeholder="Ex: www.silvatech.com.br">
+                </div>
+                </div>
+            </div>
+
+            <div class="briefing-section briefing-hud-corners">
+                <div class="briefing-hud-inner">
+                <div class="briefing-section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                    Arquivos
+                </div>
+                <p class="briefing-section-desc">Envie logotipo, imagens e documentos do seu negocio. <span class="briefing-tooltip" style="display:inline-flex;vertical-align:middle">?<span class="briefing-tooltip-tip">Arraste ou clique pra selecionar. Aceita PNG, JPG, SVG, PDF, DOC, ZIP. Max 10MB por arquivo.</span></span></p>
+                <div class="briefing-upload" id="uploadArea">
+                    <input type="file" name="arquivos" id="fileInput" multiple accept=".png,.jpg,.jpeg,.gif,.svg,.pdf,.doc,.docx,.txt,.zip">
+                    <div class="briefing-upload-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    </div>
+                    <p class="briefing-upload-text">Arraste arquivos ou clique pra selecionar</p>
+                    <p class="briefing-upload-hint">PNG, JPG, SVG, PDF, DOC, ZIP — Max 10MB por arquivo</p>
+                    <div class="briefing-upload-files" id="fileList"></div>
+                </div>
+                </div>
+            </div>
+
+            <div class="briefing-section briefing-hud-corners">
+                <div class="briefing-hud-inner">
+                <div class="briefing-section-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                    Prazo e Orcamento
+                </div>
+                <p class="briefing-section-desc">Expectativas de prazo e investimento.</p>
+                <div class="briefing-field">
+                    <label class="briefing-label">Prazo Desejado</label>
+                    <div class="briefing-calendar" id="calendarDays"></div>
+                    <input type="hidden" name="prazo" id="prazoInput">
+                </div>
+                <div class="briefing-row" style="margin-top:1rem">
+                    <div class="briefing-field" data-validate="required">
+                        <label class="briefing-label">Orcamento Estimado</label>
+                        <select class="briefing-select" name="orcamento" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="Ate R$500">Ate R$500</option>
+                            <option value="R$500 a R$1.000">R$500 a R$1.000</option>
+                            <option value="R$1.000 a R$2.500">R$1.000 a R$2.500</option>
+                            <option value="R$2.500 a R$5.000">R$2.500 a R$5.000</option>
+                            <option value="Acima de R$5.000">Acima de R$5.000</option>
+                        </select>
+                        <span class="briefing-field-error">Selecione um orcamento</span>
+                    </div>
+                    <div class="briefing-field">
+                        <label class="briefing-label">Observacoes Finais</label>
+                        <textarea class="briefing-textarea" name="observacoes" placeholder="Algo mais que eu preciso saber?" style="min-height:70px"></textarea>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <button class="briefing-submit" type="submit" id="submitBtn">
+                Enviar Briefing e Gerar Prompt
+            </button>
+        </form>
+
+        <div class="briefing-confirm" id="confirmModal">
+            <div class="briefing-confirm-box">
+                <h3 class="briefing-confirm-title">Confirmar Envio</h3>
+                <p class="briefing-confirm-sub">Revise suas informacoes antes de enviar.</p>
+                <div class="briefing-confirm-grid" id="confirmGrid"></div>
+                <div class="briefing-confirm-actions">
+                    <button class="briefing-confirm-btn cancel" id="confirmCancel">Voltar e Editar</button>
+                    <button class="briefing-confirm-btn confirm" id="confirmSend">Confirmar Envio</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="briefing-success" id="successScreen">
+            <div class="briefing-success-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f21d64" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h2>Briefing Enviado!</h2>
+            <p>Suas informacoes foram recebidas. Aqui esta o prompt pronto pra executar o site:</p>
+            <div class="briefing-prompt">
+                <div class="briefing-prompt-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    PROMPT DE EXECUCAO
+                </div>
+                <pre class="briefing-prompt-text" id="promptText"></pre>
+                <button class="briefing-prompt-copy" id="copyPrompt">Copiar</button>
+            </div>
+            <a href="briefing.html" style="color:var(--accent);font-size:.8rem;text-decoration:none">Enviar outro briefing &rarr;</a>
+        </div>
+
+        <footer class="briefing-footer">
+            <p>Feito por <a href="sites.html">Matteus Camilo</a> &mdash; Criacao de Sites Profissionais</p>
+        </footer>
+    </div>
+
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <script>
+    function toggleCheck(el){
+        el.classList.toggle('checked');
+        el.querySelector('input').checked=el.classList.contains('checked');
+        updateProgress();
+    }
+
+    document.addEventListener('DOMContentLoaded',function(){
+        var form=document.getElementById('briefingForm');
+        var submitBtn=document.getElementById('submitBtn');
+        var successScreen=document.getElementById('successScreen');
+        var promptText=document.getElementById('promptText');
+        var copyBtn=document.getElementById('copyPrompt');
+        var fileInput=document.getElementById('fileInput');
+        var fileList=document.getElementById('fileList');
+        var uploadArea=document.getElementById('uploadArea');
+        var progressBar=document.getElementById('progressBar');
+        var confirmModal=document.getElementById('confirmModal');
+        var confirmGrid=document.getElementById('confirmGrid');
+        var uploadedFiles=[];
+
+        /* ── MODE TOGGLE ── */
+        var modeToggle=document.getElementById('modeToggle');
+        var savedMode=localStorage.getItem('briefing-mode');
+        if(savedMode==='light'){
+            document.body.classList.remove('dark-mode');
+        }else if(savedMode==='dark'){
+            document.body.classList.add('dark-mode');
+        }
+        modeToggle.addEventListener('click',function(){
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('briefing-mode',document.body.classList.contains('dark-mode')?'dark':'light');
+        });
+
+        /* ── SECTION OBSERVER + STEP TRACKER ── */
+        var stepSections=document.querySelectorAll('.briefing-section');
+        var stepDots=document.querySelectorAll('.briefing-step');
+        var sectionObserver=new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+                if(entry.isIntersecting){
+                    entry.target.classList.add('visible');
+                    var idx=Array.from(stepSections).indexOf(entry.target);
+                    if(idx>=0&&idx<stepDots.length){
+                        stepDots.forEach(function(s,i){s.classList.toggle('active',i<=idx)});
+                    }
+                }
+            });
+        },{threshold:0.3});
+        stepSections.forEach(function(s){sectionObserver.observe(s)});
+
+        /* ── CALENDAR / PRAZO ── */
+        var calendarDays=document.getElementById('calendarDays');
+        var prazoInput=document.getElementById('prazoInput');
+        var prazos=[
+            {label:'3 dias',val:'Urgente (ate 3 dias)',days:3},
+            {label:'7 dias',val:'Rapido (ate 7 dias)',days:7},
+            {label:'15 dias',val:'Normal (ate 15 dias)',days:15},
+            {label:'30 dias',val:'Sem pressa (ate 30 dias)',days:30}
+        ];
+        prazos.forEach(function(p){
+            var day=document.createElement('div');
+            day.className='briefing-calendar-day';
+            day.innerHTML='<span class="day-num">'+p.days+'</span><span class="day-label">'+p.label.split(' ')[1]+'</span>';
+            day.addEventListener('click',function(){
+                calendarDays.querySelectorAll('.briefing-calendar-day').forEach(function(d){d.classList.remove('selected')});
+                day.classList.add('selected');
+                prazoInput.value=p.val;
+                updateProgress();
+            });
+            calendarDays.appendChild(day);
+        });
+
+        /* ── FILE UPLOAD ── */
+        uploadArea.addEventListener('dragover',function(e){e.preventDefault();uploadArea.classList.add('dragover')});
+        uploadArea.addEventListener('dragleave',function(){uploadArea.classList.remove('dragover')});
+        uploadArea.addEventListener('drop',function(e){e.preventDefault();uploadArea.classList.remove('dragover');handleFiles(e.dataTransfer.files)});
+        fileInput.addEventListener('change',function(){handleFiles(fileInput.files)});
+
+        function handleFiles(files){
+            Array.from(files).forEach(function(file){
+                if(uploadedFiles.length>=10||file.size>10*1024*1024)return;
+                uploadedFiles.push(file);
+                var tag=document.createElement('div');
+                tag.className='briefing-upload-file';
+                var size=(file.size/1024).toFixed(0);
+                tag.innerHTML='<span>'+file.name+' ('+size+'KB)</span><button type="button" onclick="removeFile(this,\''+file.name+'\')">&times;</button>';
+                fileList.appendChild(tag);
+                updateProgress();
+            });
+        }
+
+        window.removeFile=function(btn,name){
+            uploadedFiles=uploadedFiles.filter(function(f){return f.name!==name});
+            btn.parentElement.remove();
+            updateProgress();
+        };
+
+        /* ── VALIDATION ── */
+        function validateField(field){
+            var type=field.dataset.validate;
+            if(!type)return true;
+            var input=field.querySelector('input,textarea,select');
+            if(!input)return true;
+            var val=input.value.trim();
+            var valid=true;
+            if(type==='required')valid=val.length>0;
+            else if(type==='email')valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+            else if(type==='phone')valid=val.replace(/\D/g,'').length>=10;
+            else if(type==='min10')valid=val.length>=10;
+            field.classList.toggle('valid',valid&&val.length>0);
+            field.classList.toggle('invalid',!valid&&val.length>0);
+            return valid;
+        }
+
+        form.querySelectorAll('[data-validate]').forEach(function(field){
+            var input=field.querySelector('input,textarea,select');
+            if(input){
+                input.addEventListener('blur',function(){validateField(field)});
+                input.addEventListener('input',function(){
+                    if(field.classList.contains('invalid'))validateField(field);
+                    updateProgress();
+                });
+            }
+        });
+
+        form.querySelectorAll('select').forEach(function(sel){
+            sel.addEventListener('change',updateProgress);
+        });
+
+        function updateProgress(){
+            var fields=form.querySelectorAll('input:not([type=file]):not([type=checkbox]):not([type=color]),textarea,select');
+            var filled=0;var total=0;
+            fields.forEach(function(f){
+                if(f.name&&f.name!=='arquivos'&&f.name!=='prazo'){
+                    total++;
+                    if(f.value.trim())filled++;
+                }
+            });
+            var checks=form.querySelectorAll('input[type=checkbox]:checked');
+            if(checks.length>0)filled++;
+            if(uploadedFiles.length>0)filled++;
+            total+=3;
+            var pct=Math.min(100,Math.round((filled/total)*100));
+            progressBar.style.width=pct+'%';
+        }
+
+        /* ── FORM SUBMIT ── */
+        form.addEventListener('submit',function(e){
+            e.preventDefault();
+            var allValid=true;
+            form.querySelectorAll('[data-validate]').forEach(function(f){
+                if(!validateField(f))allValid=false;
+            });
+            if(!allValid){
+                var first=form.querySelector('.briefing-field.invalid');
+                if(first)first.scrollIntoView({behavior:'smooth',block:'center'});
+                return;
+            }
+            showConfirm();
+        });
+
+        function showConfirm(){
+            var d={};
+            var inputs=form.querySelectorAll('input:not([type=file]):not([type=checkbox]):not([type=color]),textarea,select');
+            inputs.forEach(function(el){if(el.name&&el.value)d[el.name]=el.value});
+            var checks=[];
+            form.querySelectorAll('input[type=checkbox]:checked').forEach(function(c){checks.push(c.value)});
+            var items=[
+                {label:'Nome',val:d.nome||'-'},
+                {label:'Empresa',val:d.empresa||'-'},
+                {label:'Email',val:d.email||'-'},
+                {label:'Telefone',val:d.telefone||'-'},
+                {label:'Ramo',val:d.ramo||'-'},
+                {label:'Objetivo',val:d.objetivo||'-'},
+                {label:'Paginas',val:checks.length?checks.join(', '):'-'},
+                {label:'Prazo',val:d.prazo||'-'},
+                {label:'Orcamento',val:d.orcamento||'-'},
+                {label:'Arquivos',val:uploadedFiles.length+' arquivo(s)'}
+            ];
+            confirmGrid.innerHTML='';
+            items.forEach(function(it){
+                var div=document.createElement('div');
+                div.className='briefing-confirm-item';
+                if(it.val.length>50)div.className+=' full';
+                div.innerHTML='<label>'+it.label+'</label><span>'+it.val+'</span>';
+                confirmGrid.appendChild(div);
+            });
+            confirmModal.classList.add('show');
+        }
+
+        document.getElementById('confirmCancel').addEventListener('click',function(){
+            confirmModal.classList.remove('show');
+        });
+
+        document.getElementById('confirmSend').addEventListener('click',function(){
+            confirmModal.classList.remove('show');
+            submitBtn.disabled=true;
+            submitBtn.textContent='Enviando...';
+            var fd=new FormData(form);
+            uploadedFiles.forEach(function(f){fd.append('arquivos',f)});
+            fetch(form.action,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
+            .then(function(r){if(r.ok){showSuccess();generatePrompt();launchConfetti()}else{throw new Error()}})
+            .catch(function(){submitBtn.disabled=false;submitBtn.textContent='Enviar Briefing e Gerar Prompt';alert('Erro ao enviar. Tente novamente.')});
+        });
+
+        function showSuccess(){
+            form.style.display='none';
+            successScreen.classList.add('show');
+            document.getElementById('stepsBar').style.display='none';
+            progressBar.style.width='100%';
+            window.scrollTo({top:0,behavior:'smooth'});
+        }
+
+        function generatePrompt(){
+            var d={};
+            var inputs=form.querySelectorAll('input:not([type=file]):not([type=checkbox]):not([type=color]),textarea,select');
+            inputs.forEach(function(el){if(el.name)d[el.name]=el.value});
+            var chk={};
+            form.querySelectorAll('input[type=checkbox]:checked').forEach(function(c){if(!chk[c.name])chk[c.name]=[];chk[c.name].push(c.value)});
+            var cPri=form.querySelector('[name=cor_principal]');
+            var cSec=form.querySelector('[name=cor_secundaria]');
+            var p='PROMPT DE EXECUCAO - SITE PROFISSIONAL\n========================================\n\n';
+            p+='DADOS DO CLIENTE\nNome: '+(d.nome||'N/A')+'\nEmpresa: '+(d.empresa||'N/A')+'\nEmail: '+(d.email||'N/A')+'\nTelefone: '+(d.telefone||'N/A')+'\n\n';
+            p+='SOBRE O NEGOCIO\nRamo: '+(d.ramo||'N/A')+'\nDescricao: '+(d.descricao||'N/A')+'\nPublico: '+(d.publico||'N/A')+'\nObjetivo: '+(d.objetivo||'N/A')+'\nConcorrentes: '+(d.concorrentes||'N/A')+'\n\n';
+            p+='ESTRUTURA\nPaginas: '+(chk.paginas?chk.paginas.join(', '):'N/A')+'\nFuncionalidades: '+(chk.funcionalidades?chk.funcionalidades.join(', '):'N/A')+'\nOutras: '+(d.outras_info||'N/A')+'\n\n';
+            p+='VISUAL\nCor Principal: '+(cPri?cPri.value:'#f21d64')+'\nCor Secundaria: '+(cSec?cSec.value:'#000000')+'\nEstilo: '+(d.estilo||'N/A')+'\nReferencias: '+(d.referencias||'N/A')+'\nDominio: '+(d.dominio||'A definir')+'\n\n';
+            p+='PRAZO E ORCAMENTO\nPrazo: '+(d.prazo||'N/A')+'\nOrcamento: '+(d.orcamento||'N/A')+'\nObs: '+(d.observacoes||'N/A')+'\n\n';
+            p+='========================================\nArquivos: '+uploadedFiles.length+' arquivo(s)\n';
+            if(uploadedFiles.length>0)uploadedFiles.forEach(function(f){p+='  - '+f.name+'\n'});
+            p+='\nINSTRUCAO: Crie um site profissional premium com as informacoes acima. Design dark mode, animacoes suaves, responsivo, WhatsApp flutuante, formulario de contato, otimizado para SEO.';
+            promptText.textContent=p;
+        }
+
+        copyBtn.addEventListener('click',function(){
+            navigator.clipboard.writeText(promptText.textContent).then(function(){
+                copyBtn.textContent='Copiado!';copyBtn.classList.add('copied');
+                setTimeout(function(){copyBtn.textContent='Copiar';copyBtn.classList.remove('copied')},2000);
+            });
+        });
+
+        function launchConfetti(){
+            var container=document.getElementById('confettiContainer');
+            var colors=['#f21d64','#ff6b9d','#c2185b','#fff','#ffe0eb'];
+            for(var i=0;i<60;i++){
+                (function(idx){
+                    var piece=document.createElement('div');
+                    piece.className='confetti-piece';
+                    piece.style.background=colors[idx%colors.length];
+                    piece.style.left=Math.random()*100+'%';
+                    piece.style.top='-10px';
+                    piece.style.width=(Math.random()*8+4)+'px';
+                    piece.style.height=(Math.random()*8+4)+'px';
+                    piece.style.borderRadius=Math.random()>.5?'50%':'2px';
+                    container.appendChild(piece);
+                    var dur=Math.random()*2000+1500;
+                    var xDrift=(Math.random()-.5)*200;
+                    piece.animate([
+                        {opacity:1,transform:'translateY(0) translateX(0) rotate(0deg)'},
+                        {opacity:1,transform:'translateY('+(window.innerHeight+50)+'px) translateX('+xDrift+'px) rotate('+(Math.random()*720)+'deg)',offset:.8},
+                        {opacity:0,transform:'translateY('+(window.innerHeight+50)+'px) translateX('+xDrift+'px) rotate('+(Math.random()*720)+'deg)'}
+                    ],{duration:dur,easing:'cubic-bezier(.22,1,.36,1)'});
+                    setTimeout(function(){if(piece.parentNode)piece.remove()},dur);
+                })(i);
+            }
+        }
+
+        updateProgress();
+
+        /* ══════════════════════════════════════
+           CYBERPUNK EFFECTS
+           ══════════════════════════════════════ */
+
+        /* ── MATRIX RAIN (Canvas) ── */
+        var mc=document.getElementById('matrixRain');
+        if(mc&&mc.getContext){
+            var ctx=mc.getContext('2d');
+            var cols,drops;
+            var chars='アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>{}[]|/\\';
+            function resizeMatrix(){
+                mc.width=window.innerWidth;
+                mc.height=window.innerHeight;
+                var fontSize=14;
+                cols=Math.floor(mc.width/fontSize);
+                drops=[];
+                for(var i=0;i<cols;i++)drops[i]=Math.random()*-100;
+            }
+            resizeMatrix();
+            window.addEventListener('resize',resizeMatrix);
+            var fontSize=14;
+            function drawMatrix(){
+                ctx.fillStyle='rgba(3,3,8,0.06)';
+                ctx.fillRect(0,0,mc.width,mc.height);
+                ctx.font=fontSize+'px "Share Tech Mono",monospace';
+                for(var i=0;i<cols;i++){
+                    var ch=chars[Math.floor(Math.random()*chars.length)];
+                    var x=i*fontSize;
+                    var y=drops[i]*fontSize;
+                    if(y>0){
+                        ctx.fillStyle='rgba(0,229,160,'+(0.3+Math.random()*0.4)+')';
+                        ctx.fillText(ch,x,y);
+                        if(Math.random()>0.97){
+                            ctx.fillStyle='rgba(0,229,160,0.9)';
+                            ctx.fillText(ch,x,y);
+                        }
+                    }
+                    if(y>mc.height&&Math.random()>0.985)drops[i]=0;
+                    drops[i]+=0.5+Math.random()*0.5;
+                }
+                requestAnimationFrame(drawMatrix);
+            }
+            drawMatrix();
+        }
+
+        /* ── PARTICLES ── */
+        var particlesBg=document.getElementById('particlesBg');
+        if(particlesBg){
+            var particleCount=30;
+            var particles=[];
+            for(var i=0;i<particleCount;i++){
+                var p=document.createElement('div');
+                p.className='briefing-particle';
+                var size=Math.random()*3+1;
+                p.style.width=size+'px';
+                p.style.height=size+'px';
+                p.style.background=Math.random()>.5?'rgba(242,29,100,.3)':'rgba(255,107,157,.2)';
+                p.style.left=Math.random()*100+'%';
+                p.style.top=Math.random()*100+'%';
+                particlesBg.appendChild(p);
+                particles.push({el:p,x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,size:size});
+            }
+            function animParticles(){
+                particles.forEach(function(pt){
+                    pt.x+=pt.vx;pt.y+=pt.vy;
+                    if(pt.x<0)pt.x=window.innerWidth;
+                    if(pt.x>window.innerWidth)pt.x=0;
+                    if(pt.y<0)pt.y=window.innerHeight;
+                    if(pt.y>window.innerHeight)pt.y=0;
+                    pt.el.style.left=pt.x+'px';
+                    pt.el.style.top=pt.y+'px';
+                    pt.el.style.opacity=.3+Math.sin(Date.now()*.001+pt.x)*.2;
+                });
+                requestAnimationFrame(animParticles);
+            }
+            animParticles();
+        }
+
+        /* ── STATIC NOISE (Canvas) ── */
+        var staticEl=document.querySelector('.briefing-static');
+        if(!staticEl){
+            staticEl=document.createElement('div');
+            staticEl.className='briefing-static';
+            document.body.appendChild(staticEl);
+        }
+        var staticCanvas=document.createElement('canvas');
+        staticCanvas.width=256;staticCanvas.height=256;
+        var sctx=staticCanvas.getContext('2d');
+        function drawStatic(){
+            var imgData=sctx.createImageData(256,256);
+            var data=imgData.data;
+            for(var i=0;i<data.length;i+=4){
+                var v=Math.random()*255;
+                data[i]=v;data[i+1]=v;data[i+2]=v;data[i+3]=25;
+            }
+            sctx.putImageData(imgData,0,0);
+            staticEl.style.backgroundImage='url('+staticCanvas.toDataURL()+')';
+            staticEl.style.backgroundSize='256px 256px';
+        }
+        setInterval(drawStatic,80);
+
+    });
+    </script>
+</body>
+</html>

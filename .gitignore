@@ -2,3 +2,6 @@ backup_*
 (3855)*
 *.pdf
 *.download
+.vercel
+.env*
+node_modules/

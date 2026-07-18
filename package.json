@@ -4,5 +4,8 @@
   "description": "Site premium - Matteus Camilo Audio Visual",
   "scripts": {
     "build": "echo done"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }
