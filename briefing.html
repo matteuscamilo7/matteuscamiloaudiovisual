@@ -58,8 +58,8 @@
         .briefing-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
         .briefing-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(242,29,100,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(242,29,100,.04) 1px,transparent 1px);background-size:60px 60px;opacity:.3}
         .briefing-checker{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(242,29,100,.018) 1px,transparent 1px);background-size:20px 20px;opacity:.6}
-        .briefing-grid::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,transparent,var(--bg))}
-        .briefing-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,var(--bg) 100%);pointer-events:none}
+        .briefing-grid::after{content:'';position:absolute;inset:0}
+        .briefing-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,var(--bg) 100%);pointer-events:none;opacity:0}
         .briefing-bg-orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:.08;transition:opacity .5s}
         .briefing-bg-orb-1{width:500px;height:500px;background:radial-gradient(circle,#f21d64 0%,transparent 70%);top:-200px;right:-150px;animation:orbDrift 15s ease-in-out infinite}
         .briefing-bg-orb-2{width:400px;height:400px;background:radial-gradient(circle,#ff6b9d 0%,transparent 70%);bottom:-150px;left:-100px;animation:orbDrift 18s ease-in-out infinite reverse}
