@@ -71,13 +71,16 @@
         .briefing-particle{position:absolute;border-radius:50%;pointer-events:none;opacity:0}
 
         /* â”€â”€ PROGRESS BAR â”€â”€ */
-        .briefing-progress-wrap{position:fixed;top:0;left:0;right:0;height:4px;z-index:100;background:rgba(0,0,0,.04)}
-        .briefing-progress{height:100%;background:linear-gradient(90deg,var(--accent),#ff6b9d);transition:width .4s var(--ease);border-radius:0 2px 2px 0;position:relative;box-shadow:0 0 10px rgba(242,29,100,.3)}
-        .briefing-progress::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px rgba(242,29,100,.6);opacity:0;transition:opacity .3s}
-        .briefing-progress[style*="width:"]::after{opacity:1}
+        .briefing-progress-wrap{position:fixed;top:0;left:0;right:0;height:5px;z-index:100;background:rgba(0,0,0,.04);overflow:visible}
+        .briefing-progress{height:100%;background:linear-gradient(90deg,var(--accent),#ff6b9d,#c2185b,var(--accent));background-size:200% 100%;animation:progressShimmer 2s linear infinite;transition:width .5s var(--ease);border-radius:0 3px 3px 0;position:relative;box-shadow:0 0 12px rgba(242,29,100,.4)}
+        @keyframes progressShimmer{0%{background-position:0% 0%}100%{background-position:200% 0%}}
+        .briefing-progress::after{content:'';position:absolute;right:-2px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 16px rgba(242,29,100,.7),0 0 4px rgba(242,29,100,.9);opacity:0;transition:opacity .3s}
+        .briefing-progress[style*="width:0"]::after{opacity:0!important}
+        .briefing-progress::before{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;background:radial-gradient(circle,rgba(242,29,100,.15),transparent 70%);pointer-events:none}
         .briefing-progress-markers{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%)}
-        .briefing-progress-marker{position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.08);transform:translate(-50%,-50%);transition:all .4s var(--ease);top:50%}
-        .briefing-progress-marker.active{background:var(--accent);box-shadow:0 0 8px rgba(242,29,100,.35);transform:translate(-50%,-50%) scale(1.4)}
+        .briefing-progress-marker{position:absolute;width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,.08);transform:translate(-50%,-50%);transition:all .4s var(--ease);top:50%;border:1.5px solid transparent}
+        .briefing-progress-marker.active{background:var(--accent);border-color:rgba(255,255,255,.8);box-shadow:0 0 10px rgba(242,29,100,.4);transform:translate(-50%,-50%) scale(1.5)}
+        .briefing-progress-marker.passed{background:var(--accent);border-color:rgba(242,29,100,.4);opacity:.6}
 
         .briefing-container{max-width:720px;margin:0 auto;padding:2rem 1.5rem 4rem;position:relative;z-index:2}
 
@@ -112,16 +115,19 @@
         @keyframes neonFlicker{0%,19%,21%,23%,25%,54%,56%,100%{text-shadow:0 0 7px rgba(242,29,100,.2);opacity:1}20%,24%,55%{text-shadow:none;opacity:.85}}
 
         /* â”€â”€ STEPS â”€â”€ */
-        .briefing-steps{display:flex;justify-content:center;gap:.5rem;margin-bottom:2.5rem;opacity:0;animation:fadeUp .6s var(--ease) .4s forwards}
-        .briefing-step{position:relative;display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:var(--g2);transition:color .3s}
+        .briefing-steps{display:flex;justify-content:center;gap:.5rem;margin-bottom:2rem;opacity:0;animation:fadeUp .6s var(--ease) .4s forwards}
+        .briefing-step{position:relative;display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:var(--g2);transition:all .4s var(--ease);cursor:pointer;padding:.3rem .5rem;border-radius:8px}
+        .briefing-step:hover{background:rgba(242,29,100,.04)}
         .briefing-step::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) scale(.9);background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:6px;padding:.3rem .6rem;font-size:.6rem;color:var(--g1);white-space:nowrap;pointer-events:none;opacity:0;transition:all .25s var(--ease);box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:10}
         .briefing-step:hover::after{opacity:1;transform:translateX(-50%) scale(1)}
         .briefing-step.active .briefing-step-num{animation:numPop .4s var(--ease)}
-        @keyframes numPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
-        .briefing-step-num{width:22px;height:22px;border-radius:50%;background:var(--accent-soft);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;color:var(--g1);transition:all .3s}
-        .briefing-step.active .briefing-step-num{background:rgba(242,29,100,.12);border-color:rgba(242,29,100,.4);color:var(--accent);box-shadow:0 0 12px rgba(242,29,100,.12)}
-        .briefing-step.active{color:var(--accent)}
-        .briefing-step-line{width:30px;height:1px;background:var(--g3);transition:background .3s}
+        @keyframes numPop{0%{transform:scale(1)}50%{transform:scale(1.35)}100%{transform:scale(1)}}
+        .briefing-step-num{width:24px;height:24px;border-radius:50%;background:var(--accent-soft);border:1.5px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--g1);transition:all .4s var(--ease)}
+        .briefing-step.active .briefing-step-num{background:rgba(242,29,100,.12);border-color:var(--accent);color:var(--accent);box-shadow:0 0 14px rgba(242,29,100,.15),0 0 0 4px rgba(242,29,100,.06)}
+        .briefing-step.completed .briefing-step-num{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 8px rgba(242,29,100,.2)}
+        .briefing-step.active{color:var(--accent);font-weight:600}
+        .briefing-step-line{width:30px;height:1.5px;background:var(--g3);transition:all .4s var(--ease)}
+        .briefing-step-line.filled{background:linear-gradient(90deg,var(--accent),#ff6b9d);box-shadow:0 0 6px rgba(242,29,100,.2)}
 
         .briefing-form{display:flex;flex-direction:column;gap:0}
 
@@ -138,14 +144,15 @@
         .briefing-section.visible{opacity:1;transform:translateY(0);transition-delay:0s}
         .briefing-section:hover{background:rgba(255,255,255,.78);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-color:rgba(242,29,100,.14);box-shadow:0 8px 30px rgba(242,29,100,.06),0 2px 8px rgba(0,0,0,.04);transform:translateY(-2px)}
         .briefing-section::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 5%,var(--accent) 30%,#ff6b9d 50%,var(--accent) 70%,transparent 95%);opacity:.8}
-        .briefing-section-title{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem;position:relative;letter-spacing:.3px}
-        .briefing-section-title svg{width:18px;height:18px;color:var(--accent);filter:drop-shadow(0 0 4px rgba(242,29,100,.3));transition:filter .3s}
-        .briefing-section:hover .briefing-section-title svg{filter:drop-shadow(0 0 6px rgba(242,29,100,.45))}
+        .briefing-section-title{font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem;position:relative;letter-spacing:.3px;background:linear-gradient(90deg,rgba(242,29,100,.04),transparent 80%);padding:.5rem .8rem;border-radius:8px;margin-left:-.8rem;margin-right:-.8rem}
+        .briefing-section-title svg{width:18px;height:18px;color:var(--accent);filter:drop-shadow(0 0 4px rgba(242,29,100,.3));transition:all .3s;flex-shrink:0}
+        .briefing-section:hover .briefing-section-title svg{filter:drop-shadow(0 0 6px rgba(242,29,100,.45));transform:scale(1.05)}
         .briefing-section-desc{font-size:.78rem;color:var(--g2);margin-bottom:1.4rem;line-height:1.5}
         .briefing-section.visible .briefing-section-title{animation:titlePulse 4s ease-in-out infinite}
         @keyframes titlePulse{0%,100%{text-shadow:none}50%{text-shadow:0 0 14px rgba(242,29,100,.12),0 0 28px rgba(242,29,100,.05)}}
 
-        .briefing-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+        .briefing-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;background:rgba(242,29,100,.015);border-radius:12px;padding:1rem;border:1px solid rgba(242,29,100,.04);transition:all .4s var(--ease)}
+        .briefing-row:hover{background:rgba(242,29,100,.025);border-color:rgba(242,29,100,.08);box-shadow:0 2px 12px rgba(242,29,100,.03)}
         @media(max-width:600px){.briefing-row{grid-template-columns:1fr}}
 
         /* â”€â”€ FIELDS â”€â”€ */
@@ -189,7 +196,7 @@
         /* â”€â”€ INPUTS â”€â”€ */
         .briefing-input,.briefing-textarea,.briefing-select{background:#fff;border:1.5px solid rgba(0,0,0,.08);border-radius:12px;padding:.8rem 1.1rem;color:var(--white);font-family:'Inter',sans-serif;font-size:.88rem;transition:all .35s var(--ease);outline:none;width:100%;box-shadow:0 2px 6px rgba(0,0,0,.025),inset 0 1px 2px rgba(0,0,0,.02)}
         .briefing-input,.briefing-textarea{padding-left:44px}
-        .briefing-input:focus,.briefing-textarea:focus,.briefing-select:focus{border-color:var(--accent);box-shadow:0 0 0 3.5px rgba(242,29,100,.1),0 4px 12px rgba(242,29,100,.08),inset 0 1px 3px rgba(242,29,100,.04);background:#fff}
+        .briefing-input:focus,.briefing-textarea:focus,.briefing-select:focus{border-color:var(--accent);box-shadow:0 0 0 3.5px rgba(242,29,100,.1),0 4px 12px rgba(242,29,100,.08),inset 0 1px 3px rgba(242,29,100,.04);background:#fff;transform:scale(1.01)}
         .briefing-input:hover,.briefing-textarea:hover,.briefing-select:hover{border-color:rgba(242,29,100,.25);box-shadow:0 3px 12px rgba(242,29,100,.06),inset 0 1px 2px rgba(0,0,0,.02)}
         .briefing-input::placeholder,.briefing-textarea::placeholder{color:transparent}
         .briefing-input:focus::placeholder,.briefing-textarea:focus::placeholder{color:var(--g3)}
@@ -205,15 +212,15 @@
 
         /* â”€â”€ CHECKBOXES â”€â”€ */
         .briefing-checkboxes{display:flex;flex-wrap:wrap;gap:.5rem}
-        .briefing-check{display:flex;align-items:center;gap:.4rem;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;padding:.5rem .8rem;cursor:pointer;transition:all .3s;font-size:.75rem;color:var(--g1);box-shadow:0 1px 2px rgba(0,0,0,.02);position:relative;overflow:hidden}
+        .briefing-check{display:flex;align-items:center;gap:.5rem;background:#fff;border:1.5px solid rgba(0,0,0,.07);border-radius:10px;padding:.55rem .9rem;cursor:pointer;transition:all .3s var(--ease);font-size:.78rem;color:var(--g1);box-shadow:0 1px 3px rgba(0,0,0,.02);position:relative;overflow:hidden}
         .briefing-check::after{content:'';position:absolute;width:0;height:0;border-radius:50%;background:rgba(242,29,100,.15);left:var(--rx,50%);top:var(--ry,50%);transform:translate(-50%,-50%);pointer-events:none}
         .briefing-check.ripple::after{animation:ripple .6s var(--ease)}
         @keyframes ripple{0%{width:0;height:0;opacity:1}100%{width:200px;height:200px;opacity:0}}
-        .briefing-check:hover{border-color:rgba(242,29,100,.25);box-shadow:0 2px 10px rgba(242,29,100,.05)}
+        .briefing-check:hover{border-color:rgba(242,29,100,.25);box-shadow:0 3px 12px rgba(242,29,100,.06);transform:translateY(-1px)}
         .briefing-check input{display:none}
-        .briefing-check.checked{border-color:rgba(242,29,100,.35);background:rgba(242,29,100,.06);color:var(--accent);box-shadow:0 2px 12px rgba(242,29,100,.08)}
-        .briefing-check-dot{width:14px;height:14px;border-radius:4px;border:1.5px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0}
-        .briefing-check.checked .briefing-check-dot{background:var(--accent);border-color:var(--accent);animation:checkPop .3s var(--ease);box-shadow:0 0 8px rgba(242,29,100,.25)}
+        .briefing-check.checked{border-color:var(--accent);background:rgba(242,29,100,.06);color:var(--accent);box-shadow:0 2px 12px rgba(242,29,100,.1);transform:translateY(-1px)}
+        .briefing-check-dot{width:16px;height:16px;border-radius:5px;border:1.5px solid rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;transition:all .3s var(--ease);flex-shrink:0;position:relative}
+        .briefing-check.checked .briefing-check-dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 10px rgba(242,29,100,.3)}
         @keyframes checkPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
         .briefing-check.checked .briefing-check-dot::after{content:'';width:6px;height:3px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translateY(-1px)}
 
@@ -240,12 +247,11 @@
         .briefing-calendar-day .day-label{font-size:.5rem;text-transform:uppercase;letter-spacing:.5px}
 
         /* â”€â”€ SUBMIT â”€â”€ */
-        .briefing-submit{width:100%;padding:1.1rem 2rem;border:none;border-radius:14px;background:var(--accent);color:#fff;font-family:'Inter',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:all .4s var(--ease);position:relative;overflow:hidden;margin-top:1rem;text-transform:uppercase;z-index:1;box-shadow:0 4px 20px rgba(242,29,100,.2)}
-        .briefing-submit::before{content:'';position:absolute;inset:-2px;border-radius:16px;background:conic-gradient(from 0deg,#f21d64,#ff6b9d,#c2185b,#ff4757,#f21d64);z-index:-2;opacity:0;transition:opacity .4s}
-        .briefing-submit::after{content:'';position:absolute;inset:2px;border-radius:12px;background:var(--accent);z-index:-1}
-        .briefing-submit:hover::before{opacity:1;animation:rotateBorder 2s linear infinite}
-        .briefing-submit:hover{box-shadow:0 8px 30px rgba(242,29,100,.25)}
-        .briefing-submit:active{transform:translateY(-1px)}
+        .briefing-submit{width:100%;padding:1.1rem 2rem;border:none;border-radius:14px;background:linear-gradient(135deg,var(--accent),#c2185b);color:#fff;font-family:'Inter',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.3px;cursor:pointer;transition:all .4s var(--ease);position:relative;overflow:hidden;margin-top:1rem;text-transform:uppercase;z-index:1;box-shadow:0 4px 20px rgba(242,29,100,.25)}
+        .briefing-submit::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transform:skewX(-20deg);transition:left .6s var(--ease)}
+        .briefing-submit:hover::before{left:120%}
+        .briefing-submit:hover{box-shadow:0 8px 30px rgba(242,29,100,.3);transform:translateY(-2px)}
+        .briefing-submit:active{transform:translateY(0);box-shadow:0 4px 15px rgba(242,29,100,.2)}
         .briefing-submit:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
         @keyframes rotateBorder{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
         .briefing-submit-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.3);transform:translate(-50%,-50%);pointer-events:none;width:0;height:0;opacity:1}
@@ -883,6 +889,7 @@ document.addEventListener('DOMContentLoaded',function(){
     /* â”€â”€ SECTION OBSERVER + STEP TRACKER â”€â”€ */
     var stepSections=document.querySelectorAll('.briefing-section');
     var stepDots=document.querySelectorAll('.briefing-step');
+    var stepLines=document.querySelectorAll('.briefing-step-line');
     var sectionObserver=new IntersectionObserver(function(entries){
         entries.forEach(function(entry){
             if(entry.isIntersecting){
@@ -891,7 +898,9 @@ document.addEventListener('DOMContentLoaded',function(){
                 if(idx>=0&&idx<stepDots.length){
                     stepDots.forEach(function(s,i){
                         var wasActive=s.classList.contains('active');
-                        s.classList.toggle('active',i<=idx);
+                        s.classList.remove('active','completed');
+                        if(i<idx)s.classList.add('completed');
+                        else if(i===idx)s.classList.add('active');
                         if(i<=idx&&!wasActive&&s.querySelector('.briefing-step-num')){
                             var num=s.querySelector('.briefing-step-num');
                             num.style.animation='none';
@@ -899,6 +908,7 @@ document.addEventListener('DOMContentLoaded',function(){
                             num.style.animation='numPop .4s var(--ease)';
                         }
                     });
+                    stepLines.forEach(function(l,i){l.classList.toggle('filled',i<idx)});
                 }
             }
         });
