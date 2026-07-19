@@ -98,14 +98,15 @@
         @keyframes badgePulseRing{0%,100%{opacity:0;transform:scale(1)}50%{opacity:.3;transform:scale(1.05)}}
         .briefing-badge svg{width:14px;height:14px;transition:transform .3s}
         .briefing-badge:hover svg{transform:rotate(-10deg) scale(1.1)}
-        .briefing-title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;line-height:1.2;margin-bottom:.8rem;position:relative;min-height:2.6rem}
-        .briefing-title .accent{background:linear-gradient(135deg,var(--accent),#ff6b9d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;display:inline-block}
+        .briefing-title{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;line-height:1.15;margin-bottom:1rem;position:relative;min-height:3rem;color:var(--white);text-shadow:0 2px 10px rgba(0,0,0,.06)}
+        .briefing-title .accent{background:linear-gradient(135deg,var(--accent) 0%,#ff6b9d 40%,#c2185b 70%,var(--accent) 100%);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;display:inline-block;animation:gradientShift 4s ease-in-out infinite;filter:drop-shadow(0 2px 8px rgba(242,29,100,.3))}
+        @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         .briefing-title .accent::before,.briefing-title .accent::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;-webkit-background-clip:text;background-clip:text}
-        .briefing-title .accent::before{-webkit-text-fill-color:rgba(255,0,80,.35);text-fill-color:rgba(255,0,80,.35);animation:glitch1 4s infinite;clip-path:inset(0 0 80% 0)}
-        .briefing-title .accent::after{-webkit-text-fill-color:rgba(0,200,255,.25);text-fill-color:rgba(0,200,255,.25);animation:glitch2 4s infinite;clip-path:inset(80% 0 0 0)}
-        @keyframes glitch1{0%,92%,100%{transform:translate(0)}94%{transform:translate(3px,-1px)}96%{transform:translate(-2px,1px)}98%{transform:translate(1px,2px)}}
-        @keyframes glitch2{0%,90%,100%{transform:translate(0)}92%{transform:translate(-3px,1px)}95%{transform:translate(2px,-2px)}97%{transform:translate(-1px,1px)}}
-        .briefing-sub{font-size:.9rem;color:var(--g1);line-height:1.6;max-width:500px;margin:0 auto;opacity:0;animation:fadeIn .8s var(--ease) 2.5s forwards}
+        .briefing-title .accent::before{-webkit-text-fill-color:rgba(255,0,80,.4);text-fill-color:rgba(255,0,80,.4);animation:glitch1 5s infinite;clip-path:inset(0 0 80% 0)}
+        .briefing-title .accent::after{-webkit-text-fill-color:rgba(0,200,255,.3);text-fill-color:rgba(0,200,255,.3);animation:glitch2 5s infinite;clip-path:inset(80% 0 0 0)}
+        @keyframes glitch1{0%,90%,100%{transform:translate(0)}92%{transform:translate(4px,-2px)}95%{transform:translate(-3px,1px)}97%{transform:translate(2px,3px)}}
+        @keyframes glitch2{0%,88%,100%{transform:translate(0)}90%{transform:translate(-4px,2px)}93%{transform:translate(3px,-3px)}96%{transform:translate(-2px,1px)}}
+        .briefing-sub{font-size:.95rem;color:var(--g1);line-height:1.7;max-width:520px;margin:0 auto;opacity:0;animation:fadeIn .8s var(--ease) 2.5s forwards;font-weight:400}
         .typewriter-cursor{display:inline-block;width:2px;height:1em;background:var(--accent);margin-left:2px;vertical-align:text-bottom;animation:cursorBlink .8s step-end infinite}
         @keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
         @keyframes neonFlicker{0%,19%,21%,23%,25%,54%,56%,100%{text-shadow:0 0 7px rgba(242,29,100,.2);opacity:1}20%,24%,55%{text-shadow:none;opacity:.85}}
