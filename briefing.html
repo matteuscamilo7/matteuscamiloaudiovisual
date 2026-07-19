@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Briefing - Matteus Camilo | Criacao de Sites</title>
-    <meta name="description" content="Formulario de briefing para criacao de sites profissionais. Preencha as informacoes e comecseu projeto.">
+    <meta name="description" content="Formulario de briefing para criacao de sites profissionais. Preencha as informacoes e comece seu projeto.">
     <meta property="og:title" content="Briefing - Matteus Camilo | Criacao de Sites">
     <meta property="og:description" content="Formulario de briefing para criacao de sites profissionais. Preencha e comece seu projeto.">
     <meta property="og:type" content="website">
@@ -127,7 +127,7 @@
 
         /* â”€â”€ SECTIONS â”€â”€ */
         .briefing-section{background:rgba(255,255,255,.6);border:1px solid rgba(242,29,100,.08);border-radius:0;padding:1.5rem;position:relative;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.04),0 1px 3px rgba(0,0,0,.03);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);opacity:0;transform:translateY(30px);transition:all .5s var(--ease);transition-delay:calc(var(--i,0) * .1s)}
-        .briefing-section.visible{opacity:1;transform:translateY(0)}
+        .briefing-section.visible{opacity:1;transform:translateY(0);transition-delay:0s}
         .briefing-section:hover{background:rgba(255,255,255,.72);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-color:rgba(242,29,100,.14);box-shadow:0 4px 25px rgba(242,29,100,.06),0 2px 8px rgba(0,0,0,.04)}
         .briefing-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),#ff6b9d,var(--accent),transparent)}
         .briefing-section-title{font-size:.85rem;font-weight:600;color:var(--white);margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem;position:relative}
@@ -195,7 +195,7 @@
         /* â”€â”€ CHECKBOXES â”€â”€ */
         .briefing-checkboxes{display:flex;flex-wrap:wrap;gap:.5rem}
         .briefing-check{display:flex;align-items:center;gap:.4rem;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;padding:.5rem .8rem;cursor:pointer;transition:all .3s;font-size:.75rem;color:var(--g1);box-shadow:0 1px 2px rgba(0,0,0,.02);position:relative;overflow:hidden}
-        .briefing-check::after{content:'';position:absolute;width:0;height:0;border-radius:50%;background:rgba(242,29,100,.15);transform:translate(-50%,-50%);pointer-events:none}
+        .briefing-check::after{content:'';position:absolute;width:0;height:0;border-radius:50%;background:rgba(242,29,100,.15);left:var(--rx,50%);top:var(--ry,50%);transform:translate(-50%,-50%);pointer-events:none}
         .briefing-check.ripple::after{animation:ripple .6s var(--ease)}
         @keyframes ripple{0%{width:0;height:0;opacity:1}100%{width:200px;height:200px;opacity:0}}
         .briefing-check:hover{border-color:rgba(242,29,100,.25);box-shadow:0 2px 10px rgba(242,29,100,.05)}
@@ -237,6 +237,7 @@
         .briefing-submit:active{transform:translateY(-1px)}
         .briefing-submit:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
         @keyframes rotateBorder{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+        .briefing-submit-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.3);transform:translate(-50%,-50%);pointer-events:none;width:0;height:0;opacity:1}
 
         /* â”€â”€ CONFIRM MODAL â”€â”€ */
         .briefing-confirm{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.4);backdrop-filter:blur(12px);padding:2rem;overflow-y:auto}
@@ -332,7 +333,7 @@
         .briefing-section-chevron{width:14px;height:14px;color:var(--g3);transition:transform .3s var(--ease);flex-shrink:0;margin-left:auto}
         .briefing-section.collapsed .briefing-section-chevron{transform:rotate(-180deg)}
         .briefing-section-body{transition:max-height .4s var(--ease),opacity .3s var(--ease),padding .3s var(--ease);overflow:visible;max-height:2000px;opacity:1}
-        .briefing-section.collapsed .briefing-section-body{max-height:0!important;opacity:0;padding:0!important;margin:0!important;overflow:hidden}
+        .briefing-section.collapsed .briefing-section-body{max-height:0!important;opacity:0;padding:0!important;margin:0!important;overflow:hidden;transition-delay:0s}
         .briefing-toggle-all{display:inline-flex;align-items:center;gap:.4rem;background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:6px;padding:.3rem .7rem;font-size:.6rem;color:var(--g2);cursor:pointer;transition:all .3s;margin-bottom:1rem;font-family:'Inter',sans-serif}
         .briefing-toggle-all:hover{background:rgba(242,29,100,.06);border-color:rgba(242,29,100,.15);color:var(--accent)}
 
@@ -940,11 +941,26 @@ document.addEventListener('DOMContentLoaded',function(){
         if(input){
             input.addEventListener('blur',function(){validateField(field)});
             input.addEventListener('input',function(){
-                if(field.classList.contains('invalid'))validateField(field);
+                if(field.classList.contains('invalid'))validateFieldSilent(field);
                 updateProgress();
             });
         }
     });
+    function validateFieldSilent(field){
+        var type=field.dataset.validate;
+        if(!type)return true;
+        var input=field.querySelector('input,textarea,select');
+        if(!input)return true;
+        var val=input.value.trim();
+        var valid=true;
+        if(type==='required')valid=val.length>0;
+        else if(type==='email')valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+        else if(type==='phone')valid=val.replace(/\D/g,'').length>=10;
+        else if(type==='min10')valid=val.length>=10;
+        field.classList.toggle('valid',valid&&val.length>0);
+        field.classList.toggle('invalid',!valid&&val.length>0);
+        return valid;
+    }
 
     /* â”€â”€ SELECT FLOATING LABELS â”€â”€ */
     form.querySelectorAll('.briefing-select').forEach(function(sel){
@@ -1068,7 +1084,7 @@ document.addEventListener('DOMContentLoaded',function(){
         p+='PRAZO E ORCAMENTO\nPrazo: '+(d.prazo||'N/A')+'\nOrcamento: '+(d.orcamento||'N/A')+'\nObs: '+(d.observacoes||'N/A')+'\n\n';
         p+='========================================\nArquivos: '+uploadedFiles.length+' arquivo(s)\n';
         if(uploadedFiles.length>0)uploadedFiles.forEach(function(f){p+='  - '+f.name+'\n'});
-        p+='\nINSTRUCAO: Crie um site profissional premium com as informacoes acima. Design dark mode, animacoes suaves, responsivo, WhatsApp flutuante, formulario de contato, otimizado para SEO.';
+        p+='\nINSTRUCAO: Crie um site profissional premium com as informacoes acima. Design clean e moderno, animacoes suaves, responsivo, WhatsApp flutuante, formulario de contato, otimizado para SEO.';
         promptText.textContent=p;
     }
     copyBtn.addEventListener('click',function(){
@@ -1112,7 +1128,6 @@ document.addEventListener('DOMContentLoaded',function(){
             var y=e.clientY-rect.top;
             chk.style.setProperty('--rx',x+'px');
             chk.style.setProperty('--ry',y+'px');
-            var pseudo=chk.querySelector('::after');
             chk.classList.remove('ripple');
             void chk.offsetWidth;
             chk.style.setProperty('--rx',x+'px');
@@ -1129,9 +1144,11 @@ document.addEventListener('DOMContentLoaded',function(){
         var ripple=document.createElement('span');
         ripple.className='briefing-submit-ripple';
         ripple.style.left=x+'px';ripple.style.top=y+'px';
-        ripple.style.width=ripple.style.height='0px';
         submitBtn.appendChild(ripple);
-        requestAnimationFrame(function(){ripple.style.width=ripple.style.height='300px'});
+        ripple.animate([
+            {width:'0px',height:'0px',opacity:.6},
+            {width:'300px',height:'300px',opacity:0}
+        ],{duration:600,easing:'cubic-bezier(.22,1,.36,1)'});
         setTimeout(function(){if(ripple.parentNode)ripple.remove()},600);
     });
     submitBtn.addEventListener('mousemove',function(e){
@@ -1257,11 +1274,8 @@ document.addEventListener('DOMContentLoaded',function(){
         form.querySelectorAll('input:not([type=file]):not([type=checkbox]):not([type=color]),textarea,select').forEach(function(el){
             if(el.name&&el.value.trim())hasData=true;
         });
-        if(!hasData){
-            var checks=form.querySelectorAll('input[type=checkbox]:checked');
-            if(checks.length>0)hasData=true;
-        }
-        if(!hasData&&uploadedFiles.length===0)hasData=false;
+        if(!hasData){var checks=form.querySelectorAll('input[type=checkbox]:checked');if(checks.length>0)hasData=true}
+        if(!hasData&&uploadedFiles.length>0)hasData=true;
         if(hasData){e.preventDefault();e.returnValue='Voce tem dados nao salvos. Tem certeza que quer sair?'}
     });
 
@@ -1292,7 +1306,6 @@ document.addEventListener('DOMContentLoaded',function(){
     initCharCounters();
 
     /* CLICKABLE STEPS */
-    var stepMap=[0,1,2,3];
     var sectionEls=document.querySelectorAll('.briefing-section');
     document.querySelectorAll('.briefing-step[data-step]').forEach(function(step){
         step.addEventListener('click',function(){
