@@ -212,17 +212,23 @@
 
         /* â”€â”€ CHECKBOXES â”€â”€ */
         .briefing-checkboxes{display:flex;flex-wrap:wrap;gap:.5rem}
-        .briefing-check{display:flex;align-items:center;gap:.5rem;background:#fff;border:1.5px solid rgba(0,0,0,.07);border-radius:10px;padding:.55rem .9rem;cursor:pointer;transition:all .3s var(--ease);font-size:.78rem;color:var(--g1);box-shadow:0 1px 3px rgba(0,0,0,.02);position:relative;overflow:hidden}
-        .briefing-check::after{content:'';position:absolute;width:0;height:0;border-radius:50%;background:rgba(242,29,100,.15);left:var(--rx,50%);top:var(--ry,50%);transform:translate(-50%,-50%);pointer-events:none}
-        .briefing-check.ripple::after{animation:ripple .6s var(--ease)}
-        @keyframes ripple{0%{width:0;height:0;opacity:1}100%{width:200px;height:200px;opacity:0}}
+        .briefing-check{display:flex;align-items:center;gap:.5rem;background:#fff;border:1.5px solid rgba(0,0,0,.07);border-radius:10px;padding:.55rem .9rem;cursor:pointer;transition:all .3s var(--ease);font-size:.78rem;color:var(--g1);box-shadow:0 1px 3px rgba(0,0,0,.02);position:relative;overflow:hidden;user-select:none;-webkit-user-select:none}
+        .briefing-check::after{content:'';position:absolute;width:0;height:0;border-radius:50%;background:rgba(242,29,100,.12);left:var(--rx,50%);top:var(--ry,50%);transform:translate(-50%,-50%);pointer-events:none}
+        .briefing-check.ripple::after{animation:ripple .5s var(--ease) forwards}
+        @keyframes ripple{0%{width:0;height:0;opacity:1}100%{width:250px;height:250px;opacity:0}}
         .briefing-check:hover{border-color:rgba(242,29,100,.25);box-shadow:0 3px 12px rgba(242,29,100,.06);transform:translateY(-1px)}
+        .briefing-check:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
         .briefing-check input{display:none}
         .briefing-check.checked{border-color:var(--accent);background:rgba(242,29,100,.06);color:var(--accent);box-shadow:0 2px 12px rgba(242,29,100,.1);transform:translateY(-1px)}
         .briefing-check-dot{width:16px;height:16px;border-radius:5px;border:1.5px solid rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;transition:all .3s var(--ease);flex-shrink:0;position:relative}
-        .briefing-check.checked .briefing-check-dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 10px rgba(242,29,100,.3)}
-        @keyframes checkPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+        .briefing-check.checked .briefing-check-dot{background:var(--accent);border-color:var(--accent);box-shadow:0 0 10px rgba(242,29,100,.3);animation:checkBounce .35s var(--ease)}
+        @keyframes checkBounce{0%{transform:scale(1)}30%{transform:scale(1.25)}60%{transform:scale(.9)}100%{transform:scale(1)}}
         .briefing-check.checked .briefing-check-dot::after{content:'';width:6px;height:3px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg) translateY(-1px)}
+
+        /* â”€â”€ CHECKBOX COUNTERS â”€â”€ */
+        .briefing-check-group-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+        .briefing-check-counter{font-size:.62rem;background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:10px;padding:.2rem .5rem;font-weight:600;color:var(--accent);transition:all .3s var(--ease)}
+        .briefing-check-counter.has-items{background:rgba(242,29,100,.12);border-color:rgba(242,29,100,.3)}
 
         /* â”€â”€ UPLOAD â”€â”€ */
         .briefing-upload{border:2px dashed rgba(0,0,0,.1);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:all .3s;position:relative;background:rgba(255,255,255,.5)}
@@ -593,30 +599,36 @@
                 <p class="briefing-section-desc">Selecione quais paginas e funcionalidades voce precisa. Nao se preocupe se nao tem certeza — podemos ajustar depois.</p>
                 <div class="briefing-section-body">
                 <div class="briefing-field">
+                    <div class="briefing-check-group-header">
                     <label class="briefing-label" style="position:relative;transform:none;font-size:.72rem;font-weight:500;color:var(--g1);text-transform:uppercase;letter-spacing:.5px">Paginas Desejadas * <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Selecione todas as paginas que precisa. Cada pagina tem um papel:<br><br><strong>Home:</strong> Pagina principal (obrigatoria)<br><strong>Sobre:</strong> Historia da empresa, equipe<br><strong>Servicos:</strong> Lista de servicos/produtos<br><strong>Portfolio:</strong> Galeria de trabalhos feitos<br><strong>Blog:</strong> Artigos e conteudo<br><strong>Contato:</strong> Formulario, mapa, telefone<br><strong>Loja:</strong> Vendas online<br><strong>Landing Page:</strong> Pagina de conversao</span></span></label>
-                    <div class="briefing-checkboxes">
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Home"><span class="briefing-check-dot"></span> Home</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Sobre"><span class="briefing-check-dot"></span> Sobre</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Servicos"><span class="briefing-check-dot"></span> Servicos</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Portfolio"><span class="briefing-check-dot"></span> Portfolio</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Blog"><span class="briefing-check-dot"></span> Blog</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Contato"><span class="briefing-check-dot"></span> Contato</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Loja"><span class="briefing-check-dot"></span> Loja</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="paginas" value="Landing Page"><span class="briefing-check-dot"></span> Landing Page</label>
+                    <span class="briefing-check-counter" id="paginasCounter">0 / 8</span>
+                    </div>
+                    <div class="briefing-checkboxes" id="paginasGroup">
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="paginas" value="Home"><span class="briefing-check-dot"></span> Home</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="paginas" value="Sobre"><span class="briefing-check-dot"></span> Sobre</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="paginas" value="Servicos"><span class="briefing-check-dot"></span> Servicos</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="paginas" value="Portfolio"><span class="briefing-check-dot"></span> Portfolio</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="paginas" value="Blog"><span class="briefing-check-dot"></span> Blog</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="paginas" value="Contato"><span class="briefing-check-dot"></span> Contato</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="paginas" value="Loja"><span class="briefing-check-dot"></span> Loja</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="paginas" value="Landing Page"><span class="briefing-check-dot"></span> Landing Page</label>
                     </div>
                 </div>
                 <div class="briefing-field" style="margin-top:1rem">
+                    <div class="briefing-check-group-header">
                     <label class="briefing-label" style="position:relative;transform:none;font-size:.72rem;font-weight:500;color:var(--g1);text-transform:uppercase;letter-spacing:.5px">Funcionalidades Extras <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Recursos extras que podem ser adicionados ao site:<br><br><strong>WhatsApp:</strong> Botao flutuante no canto<br><strong>Formulario:</strong> Contato por email<br><strong>Agendamento:</strong> Cliente marca horario<br><strong>Maps:</strong> Localizacao da empresa<br><strong>Galeria:</strong> Fotos em grid<br><strong>SEO:</strong> Otimizado pro Google<br><strong>Analytics:</strong> Estatisticas de visitas<br><strong>CRM:</strong> Gerenciamento de clientes<br><strong>Area do Cliente:</strong> Login e areas restritas</span></span></label>
-                    <div class="briefing-checkboxes">
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="WhatsApp"><span class="briefing-check-dot"></span> WhatsApp Flutuante</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Formulario"><span class="briefing-check-dot"></span> Formulario de Contato</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Agendamento"><span class="briefing-check-dot"></span> Agendamento</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Google Maps"><span class="briefing-check-dot"></span> Google Maps</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Galeria"><span class="briefing-check-dot"></span> Galeria de Fotos</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="SEO"><span class="briefing-check-dot"></span> SEO Basico</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Analytics"><span class="briefing-check-dot"></span> Google Analytics</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="CRM"><span class="briefing-check-dot"></span> CRM</label>
-                        <label class="briefing-check" onclick="toggleCheck(this)"><input type="checkbox" name="funcionalidades" value="Area do Cliente"><span class="briefing-check-dot"></span> Area do Cliente</label>
+                    <span class="briefing-check-counter" id="funcCounter">0 / 9</span>
+                    </div>
+                    <div class="briefing-checkboxes" id="funcGroup">
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="funcionalidades" value="WhatsApp"><span class="briefing-check-dot"></span> WhatsApp Flutuante</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="funcionalidades" value="Formulario"><span class="briefing-check-dot"></span> Formulario de Contato</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="funcionalidades" value="Agendamento"><span class="briefing-check-dot"></span> Agendamento</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="funcionalidades" value="Google Maps"><span class="briefing-check-dot"></span> Google Maps</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="funcionalidades" value="Galeria"><span class="briefing-check-dot"></span> Galeria de Fotos</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="funcionalidades" value="SEO"><span class="briefing-check-dot"></span> SEO Basico</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="funcionalidades" value="Analytics"><span class="briefing-check-dot"></span> Google Analytics</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="funcionalidades" value="CRM"><span class="briefing-check-dot"></span> CRM</label>
+                        <label class="briefing-check" onclick="toggleCheck(this)" tabindex="0" role="checkbox" aria-checked="false"><input type="checkbox" name="funcionalidades" value="Area do Cliente"><span class="briefing-check-dot"></span> Area do Cliente</label>
                     </div>
                 </div>
                 <div class="briefing-field" style="margin-top:1rem">
@@ -794,9 +806,30 @@
 <script>
 function toggleCheck(el){
     el.classList.toggle('checked');
-    el.querySelector('input').checked=el.classList.contains('checked');
+    var isChecked=el.classList.contains('checked');
+    el.querySelector('input').checked=isChecked;
+    el.setAttribute('aria-checked',isChecked);
     playSound('pop');
+    updateCounters();
     updateProgress();
+}
+function updateCounters(){
+    var pagGroup=document.getElementById('paginasGroup');
+    var funcGroup=document.getElementById('funcGroup');
+    var pagCounter=document.getElementById('paginasCounter');
+    var funcCounter=document.getElementById('funcCounter');
+    if(pagGroup&&pagCounter){
+        var total=pagGroup.querySelectorAll('.briefing-check').length;
+        var sel=pagGroup.querySelectorAll('.briefing-check.checked').length;
+        pagCounter.textContent=sel+' / '+total;
+        pagCounter.classList.toggle('has-items',sel>0);
+    }
+    if(funcGroup&&funcCounter){
+        var total=funcGroup.querySelectorAll('.briefing-check').length;
+        var sel=funcGroup.querySelectorAll('.briefing-check.checked').length;
+        funcCounter.textContent=sel+' / '+total;
+        funcCounter.classList.toggle('has-items',sel>0);
+    }
 }
 document.addEventListener('DOMContentLoaded',function(){
     var form=document.getElementById('briefingForm');
@@ -1168,7 +1201,7 @@ document.addEventListener('DOMContentLoaded',function(){
     }
     updateProgress();
 
-    /* â”€â”€ RIPPLE ON CHECKBOXES â”€â”€ */
+    /* â”€â”€ RIPPLE ON CHECKBOXES + KEYBOARD â”€â”€ */
     document.querySelectorAll('.briefing-check').forEach(function(chk){
         chk.addEventListener('click',function(e){
             var rect=chk.getBoundingClientRect();
@@ -1181,6 +1214,15 @@ document.addEventListener('DOMContentLoaded',function(){
             chk.style.setProperty('--rx',x+'px');
             chk.style.setProperty('--ry',y+'px');
             chk.classList.add('ripple');
+        });
+        chk.addEventListener('animationend',function(e){
+            if(e.animationName==='ripple')chk.classList.remove('ripple');
+        });
+        chk.addEventListener('keydown',function(e){
+            if(e.key===' '||e.key==='Enter'){
+                e.preventDefault();
+                toggleCheck(chk);
+            }
         });
     });
 
@@ -1302,6 +1344,7 @@ document.addEventListener('DOMContentLoaded',function(){
                 });
             }
             updateProgress();
+            updateCounters();
             form.querySelectorAll('[data-validate]').forEach(function(f){validateField(f)});
         }catch(e){}
     }
