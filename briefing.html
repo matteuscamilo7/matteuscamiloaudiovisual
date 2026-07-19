@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -93,8 +93,11 @@
 
         /* â”€â”€ HEADER â”€â”€ */
         .briefing-header{text-align:center;margin-bottom:2.5rem;padding-top:2rem;opacity:0;transform:translateY(20px);animation:fadeUp .6s var(--ease) .2s forwards}
-        .briefing-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent-soft);border:1px solid var(--accent-border);color:var(--accent);font-size:.7rem;font-weight:600;padding:.4rem 1rem;border-radius:20px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1.2rem;animation:neonFlicker 4s ease-in-out infinite}
-        .briefing-badge svg{width:14px;height:14px}
+        .briefing-badge{position:relative;display:inline-flex;align-items:center;gap:.5rem;background:var(--accent-soft);border:1px solid var(--accent-border);color:var(--accent);font-size:.7rem;font-weight:600;padding:.4rem 1rem;border-radius:20px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1.2rem;animation:neonFlicker 4s ease-in-out infinite}
+        .briefing-badge::before{content:'';position:absolute;inset:-4px;border-radius:24px;border:1.5px solid var(--accent);opacity:0;animation:badgePulseRing 2.5s ease-in-out infinite}
+        @keyframes badgePulseRing{0%,100%{opacity:0;transform:scale(1)}50%{opacity:.3;transform:scale(1.05)}}
+        .briefing-badge svg{width:14px;height:14px;transition:transform .3s}
+        .briefing-badge:hover svg{transform:rotate(-10deg) scale(1.1)}
         .briefing-title{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;line-height:1.2;margin-bottom:.8rem;position:relative;min-height:2.6rem}
         .briefing-title .accent{background:linear-gradient(135deg,var(--accent),#ff6b9d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;display:inline-block}
         .briefing-title .accent::before,.briefing-title .accent::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;-webkit-background-clip:text;background-clip:text}
@@ -102,14 +105,18 @@
         .briefing-title .accent::after{-webkit-text-fill-color:rgba(0,200,255,.25);text-fill-color:rgba(0,200,255,.25);animation:glitch2 4s infinite;clip-path:inset(80% 0 0 0)}
         @keyframes glitch1{0%,92%,100%{transform:translate(0)}94%{transform:translate(3px,-1px)}96%{transform:translate(-2px,1px)}98%{transform:translate(1px,2px)}}
         @keyframes glitch2{0%,90%,100%{transform:translate(0)}92%{transform:translate(-3px,1px)}95%{transform:translate(2px,-2px)}97%{transform:translate(-1px,1px)}}
-        .briefing-sub{font-size:.9rem;color:var(--g1);line-height:1.6;max-width:500px;margin:0 auto}
+        .briefing-sub{font-size:.9rem;color:var(--g1);line-height:1.6;max-width:500px;margin:0 auto;opacity:0;animation:fadeIn .8s var(--ease) 2.5s forwards}
         .typewriter-cursor{display:inline-block;width:2px;height:1em;background:var(--accent);margin-left:2px;vertical-align:text-bottom;animation:cursorBlink .8s step-end infinite}
         @keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
         @keyframes neonFlicker{0%,19%,21%,23%,25%,54%,56%,100%{text-shadow:0 0 7px rgba(242,29,100,.2);opacity:1}20%,24%,55%{text-shadow:none;opacity:.85}}
 
         /* â”€â”€ STEPS â”€â”€ */
         .briefing-steps{display:flex;justify-content:center;gap:.5rem;margin-bottom:2.5rem;opacity:0;animation:fadeUp .6s var(--ease) .4s forwards}
-        .briefing-step{display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:var(--g2);transition:color .3s}
+        .briefing-step{position:relative;display:flex;align-items:center;gap:.4rem;font-size:.7rem;color:var(--g2);transition:color .3s}
+        .briefing-step::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) scale(.9);background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:6px;padding:.3rem .6rem;font-size:.6rem;color:var(--g1);white-space:nowrap;pointer-events:none;opacity:0;transition:all .25s var(--ease);box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:10}
+        .briefing-step:hover::after{opacity:1;transform:translateX(-50%) scale(1)}
+        .briefing-step.active .briefing-step-num{animation:numPop .4s var(--ease)}
+        @keyframes numPop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
         .briefing-step-num{width:22px;height:22px;border-radius:50%;background:var(--accent-soft);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;color:var(--g1);transition:all .3s}
         .briefing-step.active .briefing-step-num{background:rgba(242,29,100,.12);border-color:rgba(242,29,100,.4);color:var(--accent);box-shadow:0 0 12px rgba(242,29,100,.12)}
         .briefing-step.active{color:var(--accent)}
@@ -281,6 +288,16 @@
         .briefing-footer p{font-size:.7rem;color:var(--g3)}
         .briefing-footer a{color:var(--accent);text-decoration:none}
 
+        /* HEADER SEPARATOR */
+        .briefing-header-sep{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:1.5rem;opacity:0;animation:fadeIn .6s var(--ease) 2.8s forwards}
+        .briefing-header-sep-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--accent-border),transparent)}
+        .briefing-header-sep-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.4;box-shadow:0 0 6px rgba(242,29,100,.3)}
+
+        /* ESTIMATED TIME BADGE */
+        .briefing-est-time{display:inline-flex;align-items:center;gap:.4rem;margin-top:.8rem;background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:20px;padding:.35rem .8rem;font-size:.65rem;color:var(--accent);font-weight:500;opacity:0;animation:fadeIn .6s var(--ease) 3s forwards}
+        .briefing-est-time svg{width:12px;height:12px;animation:estClockTick 2s linear infinite}
+        @keyframes estClockTick{0%,100%{transform:rotate(0deg)}50%{transform:rotate(180deg)}}
+
         @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         .confetti-container{position:fixed;inset:0;pointer-events:none;z-index:300}
@@ -305,6 +322,12 @@
             .briefing-field.valid .briefing-field-status,.briefing-field.invalid .briefing-field-status{opacity:1!important}
             .confetti-container{display:none}
             .typewriter-cursor{animation:none}
+            .briefing-badge::before{animation:none}
+            .briefing-sub{animation:none;opacity:1}
+            .briefing-header-sep{animation:none;opacity:1}
+            .briefing-est-time{animation:none;opacity:1}
+            .briefing-step::after{display:none}
+            .briefing-step.active .briefing-step-num{animation:none}
         }
 
         /* AUTO-SAVE INDICATOR */
@@ -413,15 +436,17 @@
             </div>
             <h1 class="briefing-title" id="typewriterTitle"><span class="typewriter-cursor">|</span></h1>
             <p class="briefing-sub">Preencha as informacoes abaixo com o maximo de detalhes possivel. Quanto mais eu souber, melhor fica o resultado.</p>
+            <div class="briefing-est-time"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Tempo estimado: ~5 min</div>
         </header>
+        <div class="briefing-header-sep"><div class="briefing-header-sep-line"></div><div class="briefing-header-sep-dot"></div><div class="briefing-header-sep-line"></div></div>
         <div class="briefing-steps" id="stepsBar">
-            <div class="briefing-step active" data-step="0"><span class="briefing-step-num">1</span> <span>Dados</span></div>
+            <div class="briefing-step active" data-step="0" data-tip="Dados pessoais e contato"><span class="briefing-step-num">1</span> <span>Dados</span></div>
             <div class="briefing-step-line"></div>
-            <div class="briefing-step" data-step="1"><span class="briefing-step-num">2</span> <span>Negocio</span></div>
+            <div class="briefing-step" data-step="1" data-tip="Sobre seu negocio"><span class="briefing-step-num">2</span> <span>Negocio</span></div>
             <div class="briefing-step-line"></div>
-            <div class="briefing-step" data-step="2"><span class="briefing-step-num">3</span> <span>Site</span></div>
+            <div class="briefing-step" data-step="2" data-tip="Paginas e funcionalidades"><span class="briefing-step-num">3</span> <span>Site</span></div>
             <div class="briefing-step-line"></div>
-            <div class="briefing-step" data-step="3"><span class="briefing-step-num">4</span> <span>Visual</span></div>
+            <div class="briefing-step" data-step="3" data-tip="Cores e estilo visual"><span class="briefing-step-num">4</span> <span>Visual</span></div>
         </div>
         <button type="button" class="briefing-toggle-all" id="toggleAllBtn">&#9660; Expandir / Recolher tudo</button>
         <div class="briefing-autosave" id="autoSaveIndicator"><span class="briefing-autosave-dot"></span> Rascunho salvo automaticamente</div>
@@ -860,7 +885,16 @@ document.addEventListener('DOMContentLoaded',function(){
                 entry.target.classList.add('visible');
                 var idx=Array.from(stepSections).indexOf(entry.target);
                 if(idx>=0&&idx<stepDots.length){
-                    stepDots.forEach(function(s,i){s.classList.toggle('active',i<=idx)});
+                    stepDots.forEach(function(s,i){
+                        var wasActive=s.classList.contains('active');
+                        s.classList.toggle('active',i<=idx);
+                        if(i<=idx&&!wasActive&&s.querySelector('.briefing-step-num')){
+                            var num=s.querySelector('.briefing-step-num');
+                            num.style.animation='none';
+                            void num.offsetWidth;
+                            num.style.animation='numPop .4s var(--ease)';
+                        }
+                    });
                 }
             }
         });
