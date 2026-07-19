@@ -92,13 +92,13 @@
         @keyframes hudPulse{0%,100%{opacity:.3}50%{opacity:.8}}
 
         /* â”€â”€ HEADER â”€â”€ */
-        .briefing-header{text-align:center;margin-bottom:2.5rem;padding-top:2rem;opacity:0;transform:translateY(20px);animation:fadeUp .6s var(--ease) .2s forwards}
-        .briefing-badge{position:relative;display:inline-flex;align-items:center;gap:.5rem;background:var(--accent-soft);border:1px solid var(--accent-border);color:var(--accent);font-size:.7rem;font-weight:600;padding:.4rem 1rem;border-radius:20px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1.2rem;animation:neonFlicker 4s ease-in-out infinite}
+        .briefing-header{text-align:center;margin-bottom:1.8rem;padding-top:1.5rem;opacity:0;transform:translateY(20px);animation:fadeUp .6s var(--ease) .2s forwards}
+        .briefing-badge{position:relative;display:inline-flex;align-items:center;gap:.5rem;background:var(--accent-soft);border:1px solid var(--accent-border);color:var(--accent);font-size:.7rem;font-weight:600;padding:.35rem .9rem;border-radius:20px;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.7rem;animation:neonFlicker 4s ease-in-out infinite}
         .briefing-badge::before{content:'';position:absolute;inset:-4px;border-radius:24px;border:1.5px solid var(--accent);opacity:0;animation:badgePulseRing 2.5s ease-in-out infinite}
         @keyframes badgePulseRing{0%,100%{opacity:0;transform:scale(1)}50%{opacity:.3;transform:scale(1.05)}}
         .briefing-badge svg{width:14px;height:14px;transition:transform .3s}
         .briefing-badge:hover svg{transform:rotate(-10deg) scale(1.1)}
-        .briefing-title{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;line-height:1.15;margin-bottom:1rem;position:relative;min-height:3rem;color:var(--white);text-shadow:0 2px 10px rgba(0,0,0,.06)}
+        .briefing-title{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;line-height:1.15;margin-bottom:.4rem;position:relative;min-height:1.15em;color:var(--white);text-shadow:0 2px 10px rgba(0,0,0,.06)}
         .briefing-title .accent{background:linear-gradient(135deg,var(--accent) 0%,#ff6b9d 40%,#c2185b 70%,var(--accent) 100%);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;display:inline-block;animation:gradientShift 4s ease-in-out infinite;filter:drop-shadow(0 2px 8px rgba(242,29,100,.3))}
         @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
         .briefing-title .accent::before,.briefing-title .accent::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;-webkit-background-clip:text;background-clip:text}
