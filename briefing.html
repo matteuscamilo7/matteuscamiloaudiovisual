@@ -230,6 +230,30 @@
         .briefing-check-counter{font-size:.62rem;background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:10px;padding:.2rem .5rem;font-weight:600;color:var(--accent);transition:all .3s var(--ease)}
         .briefing-check-counter.has-items{background:rgba(242,29,100,.12);border-color:rgba(242,29,100,.3)}
 
+        /* â”€â”€ OBJECTIVE CARDS â”€â”€ */
+        .briefing-obj-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem;margin-top:.5rem}
+        .briefing-obj-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1rem .6rem;border-radius:12px;border:1.5px solid rgba(0,0,0,.06);background:#fff;cursor:pointer;transition:all .35s var(--ease);text-align:center;overflow:hidden;user-select:none}
+        .briefing-obj-card::after{content:'';position:absolute;inset:0;border-radius:11px;opacity:0;transition:opacity .3s;background:radial-gradient(circle at 50% 30%,rgba(242,29,100,.06),transparent 70%)}
+        .briefing-obj-card:hover{border-color:rgba(242,29,100,.2);box-shadow:0 4px 16px rgba(242,29,100,.06);transform:translateY(-2px)}
+        .briefing-obj-card:hover::after{opacity:1}
+        .briefing-obj-card.selected{border-color:var(--accent);background:rgba(242,29,100,.04);box-shadow:0 4px 20px rgba(242,29,100,.1);transform:translateY(-2px)}
+        .briefing-obj-card.selected::after{opacity:1}
+        .briefing-obj-card.selected::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#ff6b9d);animation:objBarIn .3s var(--ease)}
+        @keyframes objBarIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+        .briefing-obj-card.selected .briefing-obj-icon{background:var(--accent);color:#fff;box-shadow:0 0 14px rgba(242,29,100,.3)}
+        .briefing-obj-card.selected .briefing-obj-title{color:var(--accent)}
+        .briefing-obj-icon{width:42px;height:42px;border-radius:10px;background:var(--accent-soft);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;color:var(--accent);transition:all .35s var(--ease);flex-shrink:0}
+        .briefing-obj-icon svg{width:20px;height:20px}
+        .briefing-obj-title{font-size:.72rem;font-weight:600;color:var(--g1);line-height:1.3;transition:color .3s;position:relative;z-index:1}
+        .briefing-obj-desc{font-size:.58rem;color:var(--g2);line-height:1.4;position:relative;z-index:1;max-height:0;opacity:0;overflow:hidden;transition:all .35s var(--ease)}
+        .briefing-obj-card.selected .briefing-obj-desc{max-height:60px;opacity:1;margin-top:.1rem}
+        .briefing-obj-check{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.5);transition:all .3s var(--ease);z-index:2}
+        .briefing-obj-card.selected .briefing-obj-check{opacity:1;transform:scale(1)}
+        .briefing-obj-check svg{width:10px;height:10px}
+        @keyframes objCardPop{0%{transform:scale(1)}40%{transform:scale(1.05)}100%{transform:scale(1)}}
+        .briefing-obj-card.pop{animation:objCardPop .3s var(--ease)}
+        @media(max-width:600px){.briefing-obj-cards{grid-template-columns:repeat(2,1fr);gap:.5rem}.briefing-obj-card{padding:.8rem .5rem}.briefing-obj-desc{display:none!important}}
+
         /* â”€â”€ UPLOAD â”€â”€ */
         .briefing-upload{border:2px dashed rgba(0,0,0,.1);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:all .3s;position:relative;background:rgba(255,255,255,.5)}
         .briefing-upload:hover{border-color:rgba(242,29,100,.3);box-shadow:0 2px 15px rgba(242,29,100,.05)}
@@ -560,20 +584,53 @@
                     <div class="briefing-char-count" data-counter="publico">0 caracteres</div>
                 </div>
                 <div class="briefing-field" data-validate="required" style="margin-top:1rem">
-                    <div class="briefing-field-wrap">
-                        <select class="briefing-select" name="objetivo" required>
-                            <option value="" disabled selected>&nbsp;</option>
-                            <option value="Vender produtos online">Vender produtos online</option>
-                            <option value="Gerar leads via formulario/WhatsApp">Gerar leads via formulario/WhatsApp</option>
-                            <option value="Apresentar empresa e servicos">Apresentar empresa e servicos</option>
-                            <option value="Agendamento de consultas/aulas">Agendamento de consultas/aulas</option>
-                            <option value="Portfolio de trabalhos">Portfolio de trabalhos</option>
-                            <option value="Blog / Conteudo">Blog / Conteudo</option>
-                            <option value="Outro">Outro</option>
-                        </select>
-                        <label class="briefing-label">Objetivo Principal do Site * <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Qual e o objetivo #1 do site? Isso define a estrutura, layout e funcionalidades:<br><br><strong>Vender:</strong> Botao de compra, carrinho, checkout<br><strong>Gerar leads:</strong> Formulario de contato, WhatsApp<br><strong>Apresentar:</strong> Paginas informativas, galeria<br><strong>Agendar:</strong> Calendario, horarios disponiveis<br><strong>Portfolio:</strong> Galeria de trabalhos, antes/depois</span></span></label>
+                    <label class="briefing-label" style="position:relative;transform:none;font-size:.72rem;font-weight:500;color:var(--g1);text-transform:uppercase;letter-spacing:.5px">Objetivo Principal do Site * <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Qual e o objetivo #1 do site? Isso define a estrutura, layout e funcionalidades:<br><br><strong>Vender:</strong> Botao de compra, carrinho, checkout<br><strong>Gerar leads:</strong> Formulario de contato, WhatsApp<br><strong>Apresentar:</strong> Paginas informativas, galeria<br><strong>Agendar:</strong> Calendario, horarios disponiveis<br><strong>Portfolio:</strong> Galeria de trabalhos, antes/depois</span></span></label>
+                    <input type="hidden" name="objetivo" id="objetivoInput" required>
+                    <div class="briefing-obj-cards" id="objCards">
+                        <div class="briefing-obj-card" onclick="selectObj(this)" data-value="Vender produtos online" tabindex="0" role="radio" aria-checked="false">
+                            <span class="briefing-obj-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span class="briefing-obj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
+                            <span class="briefing-obj-title">Vender Online</span>
+                            <span class="briefing-obj-desc">Loja, carrinho, checkout e pagamentos</span>
+                        </div>
+                        <div class="briefing-obj-card" onclick="selectObj(this)" data-value="Gerar leads via formulario/WhatsApp" tabindex="0" role="radio" aria-checked="false">
+                            <span class="briefing-obj-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span class="briefing-obj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+                            <span class="briefing-obj-title">Gerar Leads</span>
+                            <span class="briefing-obj-desc">Formulario de contato, WhatsApp, captacao</span>
+                        </div>
+                        <div class="briefing-obj-card" onclick="selectObj(this)" data-value="Apresentar empresa e servicos" tabindex="0" role="radio" aria-checked="false">
+                            <span class="briefing-obj-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span class="briefing-obj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+                            <span class="briefing-obj-title">Apresentar Empresa</span>
+                            <span class="briefing-obj-desc">Paginas informativas, servicos, equipe</span>
+                        </div>
+                        <div class="briefing-obj-card" onclick="selectObj(this)" data-value="Agendamento de consultas/aulas" tabindex="0" role="radio" aria-checked="false">
+                            <span class="briefing-obj-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span class="briefing-obj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg></span>
+                            <span class="briefing-obj-title">Agendar</span>
+                            <span class="briefing-obj-desc">Calendario, horarios, consultas online</span>
+                        </div>
+                        <div class="briefing-obj-card" onclick="selectObj(this)" data-value="Portfolio de trabalhos" tabindex="0" role="radio" aria-checked="false">
+                            <span class="briefing-obj-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span class="briefing-obj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span>
+                            <span class="briefing-obj-title">Portfolio</span>
+                            <span class="briefing-obj-desc">Galeria de trabalhos, antes e depois</span>
+                        </div>
+                        <div class="briefing-obj-card" onclick="selectObj(this)" data-value="Blog / Conteudo" tabindex="0" role="radio" aria-checked="false">
+                            <span class="briefing-obj-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span class="briefing-obj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+                            <span class="briefing-obj-title">Blog / Conteudo</span>
+                            <span class="briefing-obj-desc">Artigos, posts, conteudo educativo</span>
+                        </div>
+                        <div class="briefing-obj-card" onclick="selectObj(this)" data-value="Outro" tabindex="0" role="radio" aria-checked="false">
+                            <span class="briefing-obj-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span class="briefing-obj-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></span>
+                            <span class="briefing-obj-title">Outro</span>
+                            <span class="briefing-obj-desc">Descreva nas observacoes finais</span>
+                        </div>
                     </div>
-                    <span class="briefing-field-error">Selecione um objetivo</span>
+                    <span class="briefing-field-error" id="objError">Selecione um objetivo</span>
                 </div>
                 <div class="briefing-field" style="margin-top:1rem">
                     <div class="briefing-field-wrap briefing-field-wrap-textarea">
@@ -813,6 +870,26 @@ function toggleCheck(el){
     updateCounters();
     updateProgress();
 }
+function selectObj(card){
+    var cards=document.querySelectorAll('.briefing-obj-card');
+    cards.forEach(function(c){
+        c.classList.remove('selected','pop');
+        c.setAttribute('aria-checked','false');
+    });
+    card.classList.add('selected','pop');
+    card.setAttribute('aria-checked','true');
+    var input=document.getElementById('objetivoInput');
+    input.value=card.getAttribute('data-value');
+    var field=input.closest('.briefing-field');
+    if(field){field.classList.add('valid');field.classList.remove('invalid')}
+    playSound('pop');
+    updateProgress();
+}
+document.querySelectorAll('.briefing-obj-card').forEach(function(card){
+    card.addEventListener('keydown',function(e){
+        if(e.key===' '||e.key==='Enter'){e.preventDefault();selectObj(card)}
+    });
+});
 function updateCounters(){
     var pagGroup=document.getElementById('paginasGroup');
     var funcGroup=document.getElementById('funcGroup');
@@ -1342,6 +1419,10 @@ document.addEventListener('DOMContentLoaded',function(){
                 calendarDays.querySelectorAll('.briefing-calendar-day').forEach(function(d,i){
                     if(prazos[i]&&prazos[i].val===data._prazo)d.classList.add('selected');
                 });
+            }
+            if(data.objetivo){
+                var matchCard=document.querySelector('.briefing-obj-card[data-value="'+data.objetivo+'"]');
+                if(matchCard)selectObj(matchCard);
             }
             updateProgress();
             updateCounters();
