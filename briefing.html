@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Briefing - Matteus Camilo | Criacao de Sites</title>
     <meta name="description" content="Formulario de briefing para criacao de sites profissionais. Preencha as informacoes e comecseu projeto.">
+    <meta property="og:title" content="Briefing - Matteus Camilo | Criacao de Sites">
+    <meta property="og:description" content="Formulario de briefing para criacao de sites profissionais. Preencha e comece seu projeto.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://matteuscamiloaudiovisual.vercel.app/briefing.html">
+    <meta property="og:image" content="https://matteuscamiloaudiovisual.vercel.app/Topo-fundo-OFC.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Briefing - Matteus Camilo | Criacao de Sites">
+    <meta name="twitter:description" content="Formulario de briefing para criacao de sites profissionais.">
+    <meta name="twitter:image" content="https://matteuscamiloaudiovisual.vercel.app/Topo-fundo-OFC.png">
+    <script type="application/ld+json">
+    {
+        "@context":"https://schema.org",
+        "@type":"WebPage",
+        "name":"Briefing - Criacao de Sites Profissionais",
+        "description":"Formulario de briefing para criacao de sites profissionais.",
+        "publisher":{"@type":"Organization","name":"Matteus Camilo","logo":{"@type":"ImageObject","url":"https://matteuscamiloaudiovisual.vercel.app/Topo-fundo-OFC.png"}},
+        "mainEntity":{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Como funciona o briefing?","acceptedAnswer":{"@type":"Answer","text":"Preencha o formulario com as informacoes do seu negocio. Apos o envio, voce recebera um prompt personalizado para criar seu site."}},{"@type":"Question","name":"Quanto tempo demora?","acceptedAnswer":{"@type":"Answer","text":"O preenchimento leva entre 5 e 10 minutos. O prazo de entrega do site varia de 3 a 30 dias dependingo da complexidade."}}]}
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -286,6 +305,75 @@
             .confetti-container{display:none}
             .typewriter-cursor{animation:none}
         }
+
+        /* AUTO-SAVE INDICATOR */
+        .briefing-autosave{display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.3rem 0;font-size:.6rem;color:var(--g3);opacity:0;transition:opacity .4s;text-align:center}
+        .briefing-autosave.show{opacity:1}
+        .briefing-autosave-dot{width:5px;height:5px;border-radius:50%;background:var(--green);display:inline-block}
+
+        /* CHARACTER COUNTER */
+        .briefing-char-count{font-size:.6rem;color:var(--g3);text-align:right;padding:.2rem 0;transition:color .3s;min-height:1rem}
+        .briefing-char-count.valid{color:var(--green)}
+        .briefing-char-count.invalid{color:var(--red)}
+
+        /* CLICKABLE STEPS */
+        .briefing-step{cursor:pointer;transition:color .3s,transform .3s}
+        .briefing-step:hover{transform:scale(1.08)}
+        .briefing-step:active{transform:scale(.97)}
+        .briefing-step-num{cursor:pointer}
+
+        /* LOADING SPINNER */
+        .briefing-submit-loading{pointer-events:none;opacity:.8}
+        .briefing-submit-spinner{display:inline-block;width:20px;height:20px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin-right:.5rem;vertical-align:middle}
+        @keyframes spin{to{transform:rotate(360deg)}}
+
+        /* COLLAPSIBLE SECTIONS */
+        .briefing-section-title{cursor:pointer;user-select:none}
+        .briefing-section-chevron{width:14px;height:14px;color:var(--g3);transition:transform .3s var(--ease);flex-shrink:0;margin-left:auto}
+        .briefing-section.collapsed .briefing-section-chevron{transform:rotate(-180deg)}
+        .briefing-section-body{transition:max-height .4s var(--ease),opacity .3s var(--ease),padding .3s var(--ease);overflow:visible;max-height:2000px;opacity:1}
+        .briefing-section.collapsed .briefing-section-body{max-height:0!important;opacity:0;padding:0!important;margin:0!important;overflow:hidden}
+        .briefing-toggle-all{display:inline-flex;align-items:center;gap:.4rem;background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:6px;padding:.3rem .7rem;font-size:.6rem;color:var(--g2);cursor:pointer;transition:all .3s;margin-bottom:1rem;font-family:'Inter',sans-serif}
+        .briefing-toggle-all:hover{background:rgba(242,29,100,.06);border-color:rgba(242,29,100,.15);color:var(--accent)}
+
+        /* RESPONSIVE MOBILE */
+        @media(max-width:600px){
+            .briefing-checkboxes{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+            .briefing-calendar-day{width:36px;height:36px}
+            .briefing-calendar-day .day-num{font-size:.8rem}
+            .briefing-section{padding:1.2rem}
+            .briefing-title{font-size:1.7rem}
+            .briefing-hud-corners::before,.briefing-hud-corners::after,.briefing-hud-inner::before,.briefing-hud-inner::after{width:20px;height:20px}
+            .briefing-progress-markers{display:none}
+            .briefing-step span:not(.briefing-step-num){display:none}
+            .briefing-confirm-grid{grid-template-columns:1fr}
+            .briefing-confirm-box{border-radius:20px 20px 0 0;margin-top:auto}
+            .briefing-shapes{display:none}
+            .briefing-row{gap:.7rem}
+            .briefing-container{padding:1.5rem 1rem 3rem}
+            .briefing-mesh{animation-duration:60s}
+        }
+
+        /* PRINT STYLES */
+        @media print{
+            .briefing-bg,.briefing-grain,.briefing-shapes,.briefing-mesh,.briefing-particles,.briefing-progress-wrap,.briefing-steps,.mode-toggle,.briefing-upload,.confetti-container,.briefing-divider{display:none!important}
+            body{background:#fff!important;color:#000!important}
+            .briefing-section{break-inside:avoid;background:#fff!important;border:1px solid #ddd!important;backdrop-filter:none!important;box-shadow:none!important;opacity:1!important;transform:none!important}
+            .briefing-section.collapsed .briefing-section-body{max-height:none!important;opacity:1!important;overflow:visible!important}
+            .briefing-section-title{color:#000!important}
+            .briefing-input,.briefing-textarea,.briefing-select{border:1px solid #ccc!important;background:#fff!important;color:#000!important}
+            .briefing-container{max-width:100%!important;padding:1rem!important}
+            .briefing-header{opacity:1!important;transform:none!important}
+            .briefing-check.checked .briefing-check-dot::after{border-color:#000!important}
+            .briefing-field-icon,.briefing-field-status,.briefing-tooltip{display:none!important}
+            .typewriter-cursor{display:none!important}
+            .briefing-title .accent{-webkit-text-fill-color:#f21d64!important;text-fill-color:#f21d64!important}
+            .briefing-submit{display:none!important}
+            a{color:#000!important;text-decoration:underline!important}
+            .briefing-footer{border-top:1px solid #ccc!important}
+            .briefing-footer p{color:#666!important}
+            @page{margin:1.5cm}
+        }
     </style>
 </head>
 <body>
@@ -307,8 +395,8 @@
     </div>
     <div class="briefing-grain"></div>
     <div class="briefing-particles" id="particlesBg"></div>
-    <div class="briefing-progress-wrap">
-        <div class="briefing-progress" id="progressBar" style="width:0%"></div>
+    <div class="briefing-progress-wrap" aria-live="polite">
+        <div class="briefing-progress" id="progressBar" style="width:0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
         <div class="briefing-progress-markers">
             <div class="briefing-progress-marker" data-pos="25" style="left:25%"></div>
             <div class="briefing-progress-marker" data-pos="50" style="left:50%"></div>
@@ -326,14 +414,16 @@
             <p class="briefing-sub">Preencha as informacoes abaixo com o maximo de detalhes possivel. Quanto mais eu souber, melhor fica o resultado.</p>
         </header>
         <div class="briefing-steps" id="stepsBar">
-            <div class="briefing-step active"><span class="briefing-step-num">1</span> Dados</div>
+            <div class="briefing-step active" data-step="0"><span class="briefing-step-num">1</span> <span>Dados</span></div>
             <div class="briefing-step-line"></div>
-            <div class="briefing-step"><span class="briefing-step-num">2</span> Negocio</div>
+            <div class="briefing-step" data-step="1"><span class="briefing-step-num">2</span> <span>Negocio</span></div>
             <div class="briefing-step-line"></div>
-            <div class="briefing-step"><span class="briefing-step-num">3</span> Site</div>
+            <div class="briefing-step" data-step="2"><span class="briefing-step-num">3</span> <span>Site</span></div>
             <div class="briefing-step-line"></div>
-            <div class="briefing-step"><span class="briefing-step-num">4</span> Visual</div>
+            <div class="briefing-step" data-step="3"><span class="briefing-step-num">4</span> <span>Visual</span></div>
         </div>
+        <button type="button" class="briefing-toggle-all" id="toggleAllBtn">&#9660; Expandir / Recolher tudo</button>
+        <div class="briefing-autosave" id="autoSaveIndicator"><span class="briefing-autosave-dot"></span> Rascunho salvo automaticamente</div>
         <form class="briefing-form" id="briefingForm" action="https://formspree.io/f/xkgvbznr" method="POST" enctype="multipart/form-data">
 
             <!-- SECTION 1: DADOS -->
@@ -342,8 +432,10 @@
                 <div class="briefing-section-title">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     Seus Dados
+                    <svg class="briefing-section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
                 <p class="briefing-section-desc">Informacoes de contato pra gente se comunicar.</p>
+                <div class="briefing-section-body">
                 <div class="briefing-row">
                     <div class="briefing-field" data-validate="required">
                         <div class="briefing-field-wrap">
@@ -385,6 +477,7 @@
                     </div>
                 </div>
                 </div>
+                </div>
             </div>
             <div class="briefing-divider"><div class="briefing-divider-line"></div><div class="briefing-divider-diamond"></div><div class="briefing-divider-line"></div></div>
 
@@ -394,8 +487,10 @@
                 <div class="briefing-section-title">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     Sobre o Negocio
+                    <svg class="briefing-section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
                 <p class="briefing-section-desc">Conte tudo sobre sua empresa, publico e objetivos.</p>
+                <div class="briefing-section-body">
                 <div class="briefing-field" data-validate="required">
                     <div class="briefing-field-wrap">
                         <span class="briefing-field-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
@@ -411,6 +506,7 @@
                         <label class="briefing-label">Descricao do Negocio * <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Quanto mais detalhes, melhor o resultado. Explique o que faz, como funciona, qual a proposta de valor.</span></span></label>
                         <span class="briefing-field-status"><svg class="field-check" viewBox="0 0 24 24" fill="none" stroke="#00e5a0" stroke-width="2.5"><path class="field-check-path" d="M4 12l6 6L20 6"/></svg><svg class="field-x" viewBox="0 0 24 24" fill="none" stroke="#ff4757" stroke-width="2.5"><line class="field-x-line" x1="6" y1="6" x2="18" y2="18"/><line class="field-x-line" x1="18" y1="6" x2="6" y2="18"/></svg></span>
                     </div>
+                    <div class="briefing-char-count" data-counter="descricao">0 caracteres (minimo 10)</div>
                     <span class="briefing-field-error">Minimo de 10 caracteres</span>
                 </div>
                 <div class="briefing-field" style="margin-top:1rem">
@@ -419,6 +515,7 @@
                         <textarea class="briefing-textarea" name="publico" placeholder=" " style="min-height:70px"></textarea>
                         <label class="briefing-label">Publico-Alvo</label>
                     </div>
+                    <div class="briefing-char-count" data-counter="publico">0 caracteres</div>
                 </div>
                 <div class="briefing-field" data-validate="required" style="margin-top:1rem">
                     <div class="briefing-field-wrap">
@@ -442,6 +539,8 @@
                         <textarea class="briefing-textarea" name="concorrentes" placeholder=" " style="min-height:60px"></textarea>
                         <label class="briefing-label">Concorrentes (links se tiver)</label>
                     </div>
+                    <div class="briefing-char-count" data-counter="concorrentes">0 caracteres</div>
+                </div>
                 </div>
                 </div>
             </div>
@@ -453,8 +552,10 @@
                 <div class="briefing-section-title">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
                     Estrutura do Site
+                    <svg class="briefing-section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
                 <p class="briefing-section-desc">Quais paginas e funcionalidades voce precisa.</p>
+                <div class="briefing-section-body">
                 <div class="briefing-field">
                     <label class="briefing-label" style="position:relative;transform:none;font-size:.72rem;font-weight:500;color:var(--g1);text-transform:uppercase;letter-spacing:.5px">Paginas Desejadas * <span class="briefing-tooltip">?<span class="briefing-tooltip-tip">Selecione todas as paginas que precisa. Podemos ajustar depois.</span></span></label>
                     <div class="briefing-checkboxes">
@@ -487,6 +588,8 @@
                         <textarea class="briefing-textarea" name="outras_info" placeholder=" " style="min-height:60px"></textarea>
                         <label class="briefing-label">Outras Informacoes</label>
                     </div>
+                    <div class="briefing-char-count" data-counter="outras_info">0 caracteres</div>
+                </div>
                 </div>
                 </div>
             </div>
@@ -498,8 +601,10 @@
                 <div class="briefing-section-title">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><circle cx="8.5" cy="15.5" r="2.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2"/></svg>
                     Preferencias Visuais
+                    <svg class="briefing-section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
                 <p class="briefing-section-desc">Cores, estilo e identidade visual do site.</p>
+                <div class="briefing-section-body">
                 <div class="briefing-row">
                     <div class="briefing-field">
                         <label class="briefing-label" style="position:relative;transform:none;font-size:.72rem;font-weight:500;color:var(--g1);text-transform:uppercase;letter-spacing:.5px">Cor Principal</label>
@@ -532,6 +637,7 @@
                         <textarea class="briefing-textarea" name="referencias" placeholder=" " style="min-height:60px"></textarea>
                         <label class="briefing-label">Referencias Visuais</label>
                     </div>
+                    <div class="briefing-char-count" data-counter="referencias">0 caracteres</div>
                 </div>
                 <div class="briefing-field" style="margin-top:1rem">
                     <div class="briefing-field-wrap">
@@ -539,6 +645,7 @@
                         <input class="briefing-input" type="url" name="dominio" placeholder=" ">
                         <label class="briefing-label">Dominio Proprio</label>
                     </div>
+                </div>
                 </div>
                 </div>
             </div>
@@ -550,9 +657,11 @@
                 <div class="briefing-section-title">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
                     Arquivos
+                    <svg class="briefing-section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
                 <p class="briefing-section-desc">Envie logotipo, imagens e documentos do seu negocio. <span class="briefing-tooltip" style="display:inline-flex;vertical-align:middle">?<span class="briefing-tooltip-tip">Arraste ou clique pra selecionar. Aceita PNG, JPG, SVG, PDF, DOC, ZIP. Max 10MB por arquivo.</span></span></p>
-                <div class="briefing-upload" id="uploadArea">
+                <div class="briefing-section-body">
+                <div class="briefing-upload" id="uploadArea" aria-label="Carregar arquivo">
                     <input type="file" name="arquivos" id="fileInput" multiple accept=".png,.jpg,.jpeg,.gif,.svg,.pdf,.doc,.docx,.txt,.zip">
                     <div class="briefing-upload-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
@@ -560,6 +669,7 @@
                     <p class="briefing-upload-text">Arraste arquivos ou clique pra selecionar</p>
                     <p class="briefing-upload-hint">PNG, JPG, SVG, PDF, DOC, ZIP - Max 10MB por arquivo</p>
                     <div class="briefing-upload-files" id="fileList"></div>
+                </div>
                 </div>
                 </div>
             </div>
@@ -571,8 +681,10 @@
                 <div class="briefing-section-title">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
                     Prazo e Orcamento
+                    <svg class="briefing-section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
                 <p class="briefing-section-desc">Expectativas de prazo e investimento.</p>
+                <div class="briefing-section-body">
                 <div class="briefing-field">
                     <label class="briefing-label" style="position:relative;transform:none;font-size:.72rem;font-weight:500;color:var(--g1);text-transform:uppercase;letter-spacing:.5px">Prazo Desejado</label>
                     <div class="briefing-calendar" id="calendarDays"></div>
@@ -593,13 +705,15 @@
                         </div>
                         <span class="briefing-field-error">Selecione um orcamento</span>
                     </div>
-                    <div class="briefing-field">
+                <div class="briefing-field">
                         <div class="briefing-field-wrap briefing-field-wrap-textarea">
                             <span class="briefing-field-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
                             <textarea class="briefing-textarea" name="observacoes" placeholder=" " style="min-height:70px"></textarea>
                             <label class="briefing-label">Observacoes Finais</label>
                         </div>
+                        <div class="briefing-char-count" data-counter="observacoes">0 caracteres</div>
                     </div>
+                </div>
                 </div>
                 </div>
             </div>
@@ -614,8 +728,8 @@
                 <p class="briefing-confirm-sub">Revise suas informacoes antes de enviar.</p>
                 <div class="briefing-confirm-grid" id="confirmGrid"></div>
                 <div class="briefing-confirm-actions">
-                    <button class="briefing-confirm-btn cancel" id="confirmCancel">Voltar e Editar</button>
-                    <button class="briefing-confirm-btn confirm" id="confirmSend">Confirmar Envio</button>
+                    <button class="briefing-confirm-btn cancel" id="confirmCancel" aria-label="Fechar">Voltar e Editar</button>
+                    <button class="briefing-confirm-btn confirm" id="confirmSend" aria-label="Confirmar envio do briefing">Confirmar Envio</button>
                 </div>
             </div>
         </div>
@@ -631,7 +745,7 @@
                     PROMPT DE EXECUCAO
                 </div>
                 <pre class="briefing-prompt-text" id="promptText"></pre>
-                <button class="briefing-prompt-copy" id="copyPrompt">Copiar</button>
+                <button class="briefing-prompt-copy" id="copyPrompt" aria-label="Copiar prompt">Copiar</button>
             </div>
             <a href="briefing.html" style="color:var(--accent);font-size:.8rem;text-decoration:none">Enviar outro briefing &rarr;</a>
         </div>
@@ -867,6 +981,7 @@ document.addEventListener('DOMContentLoaded',function(){
         total+=3;
         var pct=Math.min(100,Math.round((filled/total)*100));
         progressBar.style.width=pct+'%';
+        progressBar.setAttribute('aria-valuenow',String(pct));
         document.querySelectorAll('.briefing-progress-marker').forEach(function(m){
             var pos=parseInt(m.dataset.pos);
             m.classList.toggle('active',pct>=pos);
@@ -921,18 +1036,20 @@ document.addEventListener('DOMContentLoaded',function(){
     document.getElementById('confirmSend').addEventListener('click',function(){
         confirmModal.classList.remove('show');
         submitBtn.disabled=true;
-        submitBtn.textContent='Enviando...';
+        submitBtn.classList.add('briefing-submit-loading');
+        submitBtn.innerHTML='<span class="briefing-submit-spinner"></span>Enviando...';
         var fd=new FormData(form);
         uploadedFiles.forEach(function(f){fd.append('arquivos',f)});
         fetch(form.action,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
-        .then(function(r){if(r.ok){showSuccess();generatePrompt();launchConfetti();playSound('chime')}else{throw new Error()}})
-        .catch(function(){submitBtn.disabled=false;submitBtn.textContent='Enviar Briefing e Gerar Prompt';alert('Erro ao enviar. Tente novamente.')});
+        .then(function(r){if(r.ok){localStorage.removeItem('briefing-draft');showSuccess();generatePrompt();launchConfetti();playSound('chime')}else{throw new Error()}})
+        .catch(function(){submitBtn.disabled=false;submitBtn.classList.remove('briefing-submit-loading');submitBtn.textContent='Enviar Briefing e Gerar Prompt';alert('Erro ao enviar. Tente novamente.')});
     });
     function showSuccess(){
         form.style.display='none';
         successScreen.classList.add('show');
         document.getElementById('stepsBar').style.display='none';
         progressBar.style.width='100%';
+        progressBar.setAttribute('aria-valuenow','100');
         window.scrollTo({top:0,behavior:'smooth'});
     }
     function generatePrompt(){
@@ -1065,6 +1182,154 @@ document.addEventListener('DOMContentLoaded',function(){
             requestAnimationFrame(animParticles);
         }
         animParticles();
+    }
+
+    /* AUTO-SAVE TO LOCALSTORAGE */
+    var autoSaveKey='briefing-draft';
+    var autoSaveIndicator=document.getElementById('autoSaveIndicator');
+    var autoSaveTimer=null;
+    var formInteracted=false;
+    function saveDraft(){
+        var data={};
+        form.querySelectorAll('input:not([type=file]):not([type=checkbox]):not([type=color]),textarea,select').forEach(function(el){
+            if(el.name)data[el.name]=el.value;
+        });
+        var checks=[];
+        form.querySelectorAll('.briefing-check').forEach(function(c){
+            if(c.querySelector('input').checked)checks.push({name:c.querySelector('input').name,value:c.querySelector('input').value,checked:true});
+        });
+        data._checks=checks;
+        data._prazo=prazoInput.value;
+        try{localStorage.setItem(autoSaveKey,JSON.stringify(data))}catch(e){}
+        if(autoSaveIndicator){
+            autoSaveIndicator.classList.add('show');
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer=setTimeout(function(){autoSaveIndicator.classList.remove('show')},2000);
+        }
+    }
+    function restoreDraft(){
+        try{
+            var raw=localStorage.getItem(autoSaveKey);
+            if(!raw)return;
+            var data=JSON.parse(raw);
+            form.querySelectorAll('input:not([type=file]):not([type=checkbox]):not([type=color]),textarea,select').forEach(function(el){
+                if(el.name&&data[el.name]!==undefined){
+                    el.value=data[el.name];
+                    if(el.tagName==='SELECT'||el.tagName==='TEXTAREA'||(el.type&&el.type!=='color')){
+                        var field=el.closest('.briefing-field');
+                        if(field&&el.value)field.classList.add('has-value');
+                    }
+                }
+            });
+            if(data._checks){
+                data._checks.forEach(function(ch){
+                    var cb=form.querySelector('.briefing-check input[name="'+ch.name+'"][value="'+ch.value+'"]');
+                    if(cb&&ch.checked){
+                        var label=cb.closest('.briefing-check');
+                        if(label){label.classList.add('checked');cb.checked=true;}
+                    }
+                });
+            }
+            if(data._prazo){
+                prazoInput.value=data._prazo;
+                calendarDays.querySelectorAll('.briefing-calendar-day').forEach(function(d,i){
+                    if(prazos[i]&&prazos[i].val===data._prazo)d.classList.add('selected');
+                });
+            }
+            updateProgress();
+            form.querySelectorAll('[data-validate]').forEach(function(f){validateField(f)});
+        }catch(e){}
+    }
+    restoreDraft();
+    form.addEventListener('input',function(e){
+        formInteracted=true;
+        saveDraft();
+    });
+    form.addEventListener('change',function(e){
+        formInteracted=true;
+        saveDraft();
+    });
+
+    /* BEFOREUNLOAD PROTECTION */
+    window.addEventListener('beforeunload',function(e){
+        if(!formInteracted)return;
+        var hasData=false;
+        form.querySelectorAll('input:not([type=file]):not([type=checkbox]):not([type=color]),textarea,select').forEach(function(el){
+            if(el.name&&el.value.trim())hasData=true;
+        });
+        if(!hasData){
+            var checks=form.querySelectorAll('input[type=checkbox]:checked');
+            if(checks.length>0)hasData=true;
+        }
+        if(!hasData&&uploadedFiles.length===0)hasData=false;
+        if(hasData){e.preventDefault();e.returnValue='Voce tem dados nao salvos. Tem certeza que quer sair?'}
+    });
+
+    /* CHARACTER COUNTERS */
+    function initCharCounters(){
+        document.querySelectorAll('[data-counter]').forEach(function(counter){
+            var name=counter.getAttribute('data-counter');
+            var textarea=form.querySelector('[name="'+name+'"]');
+            if(!textarea)return;
+            var isMin10=name==='descricao';
+            function update(){
+                var len=textarea.value.length;
+                if(isMin10){
+                    counter.textContent=len+' caracteres (minimo 10)';
+                    if(textarea.value.trim().length>0){
+                        counter.className='briefing-char-count '+(len>=10?'valid':'invalid');
+                    }else{
+                        counter.className='briefing-char-count';
+                    }
+                }else{
+                    counter.textContent=len+' caracteres';
+                }
+            }
+            textarea.addEventListener('input',update);
+            update();
+        });
+    }
+    initCharCounters();
+
+    /* CLICKABLE STEPS */
+    var stepMap=[0,1,2,3];
+    var sectionEls=document.querySelectorAll('.briefing-section');
+    document.querySelectorAll('.briefing-step[data-step]').forEach(function(step){
+        step.addEventListener('click',function(){
+            var idx=parseInt(step.getAttribute('data-step'));
+            var target;
+            if(idx===0)target=sectionEls[0];
+            else if(idx===1)target=sectionEls[1];
+            else if(idx===2)target=sectionEls[2];
+            else if(idx===3)target=sectionEls[3];
+            if(target){
+                target.scrollIntoView({behavior:'smooth',block:'start'});
+                if(target.classList.contains('collapsed')){
+                    target.classList.remove('collapsed');
+                }
+            }
+        });
+    });
+
+    /* COLLAPSIBLE SECTIONS */
+    var allCollapsed=false;
+    document.querySelectorAll('.briefing-section-title').forEach(function(title){
+        title.addEventListener('click',function(e){
+            if(e.target.closest('.briefing-section-chevron')){/* ok */}
+            var section=title.closest('.briefing-section');
+            if(section)section.classList.toggle('collapsed');
+        });
+    });
+    var toggleAllBtn=document.getElementById('toggleAllBtn');
+    if(toggleAllBtn){
+        toggleAllBtn.addEventListener('click',function(){
+            allCollapsed=!allCollapsed;
+            document.querySelectorAll('.briefing-section').forEach(function(s){
+                if(allCollapsed)s.classList.add('collapsed');
+                else s.classList.remove('collapsed');
+            });
+            toggleAllBtn.innerHTML=allCollapsed?'&#9650; Expandir tudo':'&#9660; Recolher tudo';
+        });
     }
 });
 </script>
